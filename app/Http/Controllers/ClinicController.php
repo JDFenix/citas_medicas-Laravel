@@ -13,7 +13,7 @@ class ClinicController extends Controller
     public function index()
     {
         $clinics = Clinic::all();
-        return view('clinics.index', compact('clinics'));
+        return view('clinic.index', compact('clinics'));
     }
 
     /**
@@ -21,7 +21,7 @@ class ClinicController extends Controller
      */
     public function create()
     {
-        return view('clinics.register');
+        return view('clinic.register');
     }
 
     /**
@@ -29,6 +29,7 @@ class ClinicController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'speciality' => 'nullable|string|unique:clinics|max:255',
             'consultory' => 'nullable|integer|unique:clinics',
@@ -36,7 +37,7 @@ class ClinicController extends Controller
 
         Clinic::create($validated);
 
-        return redirect()->route('clinics.index')->with('success', 'Clínica creada exitosamente.');
+        return redirect()->route('clinic.showIndex')->with('success', 'Clínica creada exitosamente.');
     }
 
     /**
@@ -50,33 +51,38 @@ class ClinicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Clinic $clinic)
+    public function edit(string $cipherid)
     {
-        return view('clinics.edit', compact('clinic'));
+        $id = decrypt($cipherid);
+        $clinic = Clinic::findOrFail($id);
+        return view('clinic.update')->with(['clinic' => $clinic]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Clinic $clinic)
+    public function update(Request $request)
     {
-        $validated = $request->validate([
-            'speciality' => 'nullable|string|unique:clinics,speciality,' . $clinic->id . '|max:255',
-            'consultory' => 'nullable|integer|unique:clinics,consultory,' . $clinic->id,
+        $consultoryData = $request->validate([
+            'id' => 'nullable',
+            'speciality' => 'nullable|string|max:255',
+            'consultory' => 'nullable|integer',
         ]);
 
-        $clinic->update($validated);
+        $clinic = Clinic::findOrFail($consultoryData['id']);
+        $clinic->update($consultoryData);
 
-        return redirect()->route('clinics.index')->with('success', 'Clínica actualizada exitosamente.');
+        return redirect()->route('clinic.showIndex')->with('success', 'Clínica actualizada exitosamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Clinic $clinic)
+    public function delete(string $cipherid)
     {
+        $id = decrypt($cipherid);
+        $clinic = Clinic::findOrFail($id);
         $clinic->delete();
-
-        return redirect()->route('clinics.index')->with('success', 'Clínica eliminada exitosamente.');
+        return $this->index();
     }
 }

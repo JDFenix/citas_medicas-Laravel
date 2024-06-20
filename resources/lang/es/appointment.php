@@ -7,4 +7,7 @@ return [
     'Date' => 'Fecha',
     'Hour' => 'Hora',
     'Speciality'=>'Especialidad',
+    'Clinics' => 'Clinicas',
+    'Speciality Name' => 'Nombre de la especialidad',
+    'Consultory Number' => 'Numero del consultorio'
 ];

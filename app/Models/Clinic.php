@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clinic extends Model
 {
+
+    protected $fillable = [
+        'speciality',
+        'consultory'
+
+    ];
+
     use HasFactory;
 
-    public  function  appointment()
+    public function appointment()
     {
         return $this->belongsTo(Appointment::class);
     }

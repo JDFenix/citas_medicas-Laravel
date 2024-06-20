@@ -50,6 +50,12 @@
                             </li>
 
                         @endif
+
+                        @if(Auth::user()->role == 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route("clinic.showIndex")}}">{{ __('appointment.Clinics') }}</a>
+                            </li>
+                        @endif
                     </ul>
 
                 @endif
