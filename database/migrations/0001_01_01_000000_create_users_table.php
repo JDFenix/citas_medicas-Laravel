@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('paternal_surname')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('external_id')->nullable();
+            $table->string('external_auth')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

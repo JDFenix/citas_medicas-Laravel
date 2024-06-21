@@ -55,7 +55,7 @@ class ClinicController extends Controller
     {
         $id = decrypt($cipherid);
         $clinic = Clinic::findOrFail($id);
-        return view('clinic.update')->with(['clinic' => $clinic]);
+        return view('clinic.update')->with(['clinic' =>  $clinic]);
     }
 
     /**
