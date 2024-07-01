@@ -9,5 +9,6 @@ return [
     'Speciality'=>'Especialidad',
     'Clinics' => 'Clinicas',
     'Speciality Name' => 'Nombre de la especialidad',
-    'Consultory Number' => 'Numero del consultorio'
+    'Consultory Number' => 'Numero del consultorio',
+    'Name Patient' => 'Nombre del paciente'
 ];

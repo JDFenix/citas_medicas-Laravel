@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
+    protected $fillable = [
+        'date',
+        'users_id',
+        'clinics_id',
+        'doctors_id'
+    ];
+
     use HasFactory;
 
     public function clinics()
     {
-        return $this->hasMany(Clinic::class);
+        return $this->belongsTo(Clinic::class, 'clinics_id');
     }
 
     public function doctors()
@@ -19,7 +26,8 @@ class Appointment extends Model
         return $this->hasOne(Doctor::class);
     }
 
-    public function users(){
-        return $this->hasOne(User::class);
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id');
     }
 }

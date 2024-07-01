@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClinicController;
-use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
-
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\DeleteUserController;
+use App\Http\Controllers\lang\LanguageController;
+use App\Http\Controllers\user\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +21,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //appointments
 Route::get("/appointment/register", [AppointmentController::class, 'create'])->name("appointment.formRegister")->middleware("auth");
+Route::post("/appointment/registerP", [AppointmentController::class, 'store'])->name("appointment.post")->middleware("auth");
+Route::get("/appointment/main", [AppointmentController::class, 'index'])->name("appointment.main")->middleware("auth");
 
 
 //clinics
@@ -35,29 +39,15 @@ Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->na
 
 //google
 
-Route::get('login-google', function () {
-    return Socialite::driver('google')->redirect();
-});
+Route::get('login-google', [AuthController::class, 'redirectToGoogle']);
+Route::get('google-callback', [AuthController::class, 'callbackGoogle']);
 
-Route::get('google-callback', function () {
-    $socialUser = Socialite::driver('google')->user();
-    $user = User::where('external_id', $socialUser->id)
-        ->where('external_auth', 'google')
-        ->first();
 
-    if ($user) {
-        Auth::login($user);
-    } else {
-        $user = User::create([
-            'name' => $socialUser->name,
-            'email' => $socialUser->email,
-            'avatar' => $socialUser->avatar,
-            'external_id' => $socialUser->id,
-            'external_auth' => 'google',
-        ]);
+//change language
+Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
-        Auth::login($user);
-    }
 
-    return redirect('/home');
-});
+//user
+Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth");
+
+Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth");

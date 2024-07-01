@@ -14,7 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Bootstrap Icons CDN -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+          rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -49,19 +50,23 @@
                         </li>
                         @if (Auth::user()->role == 'pacient')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route("appointment.formRegister")}}">{{ __('appointment.Appointment') }}</a>
+                                <a class="nav-link"
+                                   href="{{route("appointment.main")}}">{{ __('appointment.Appointment') }}</a>
                             </li>
 
                         @endif
 
                         @if(Auth::user()->role == 'admin')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route("clinic.showIndex")}}">{{ __('appointment.Clinics') }}</a>
+                                <a class="nav-link"
+                                   href="{{route("clinic.showIndex")}}">{{ __('appointment.Clinics') }}</a>
                             </li>
                         @endif
                     </ul>
 
                 @endif
+                {{--                    <a href="{{ route('lang.switch', ['lang' => 'en']) }}">English</a>--}}
+                {{--                    <a href="{{ route('lang.switch', ['lang' => 'es']) }}">Español</a>--}}
 
 
 
@@ -84,16 +89,24 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                                <img class="rounded-circle avatar" style="width: 15%;height: 15%;"
+                                     src="{{ Auth::user()->avatar }}"
+                                     alt="Avatar de usuario">
+                                <span class="user-name">{{ Auth::user()->name }}</span>
                             </a>
 
+
+
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="{{ route('user.showProfile') }}">{{ __('user.Profile') }}</a>
+                                <a class="dropdown-item" href="{{ route('user.showSetting') }}">{{ __('user.Settings') }}</a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('auth.Logout') }}
                                 </a>
-
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>

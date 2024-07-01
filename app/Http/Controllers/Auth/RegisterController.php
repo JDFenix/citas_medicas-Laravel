@@ -64,7 +64,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'avatar' => $data['avatar'],
+            'avatar' => isset($data['avatar']) && $data['avatar'] !== null
+                ? $data['avatar'] : "https://api.dicebear.com/9.x/open-peeps/svg?" . $data['name'] . Hash::make($data['email']),
             'name' => $data['name'],
             'paternal_surname' => $data['paternal_surname'],
             'maternal_surname' => $data['paternal_surname'],

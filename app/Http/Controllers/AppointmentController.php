@@ -3,24 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\appointment;
+use App\Models\Clinic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        return view("appointment.register");
+        $allAppointmentsByUser = Appointment::with('users')->get();
+        return view('appointment.main', compact('allAppointmentsByUser'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $clinicsSpeciality = Clinic::all();
+        return view("appointment.register")
+            ->with(['clinicsSpeciality' => $clinicsSpeciality]);
     }
 
     /**
@@ -28,7 +36,16 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataAppointment = $request->validate([
+            'date' => 'nullable',
+            'users_id' => 'nullable',
+            'clinics_id' => 'nullable',
+            'doctors_id' => 'nullable'
+        ]);
+
+        $newAppointment = Appointment::create($dataAppointment);
+
+        return redirect()->route('appointment.main')->with('success', 'Clínica creada exitosamente.');
     }
 
     /**
