@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->date("date")->nullable();
-
             $table->foreignId("users_id")->constrained()->onDelete('cascade');
             $table->foreignId("clinics_id")->constrained()->onDelete('cascade');
             $table->foreignId("doctors_id")->constrained()->onDelete('cascade');
-
-
 
             $table->timestamps();
         });

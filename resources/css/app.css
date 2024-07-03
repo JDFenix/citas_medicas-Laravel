@@ -1,0 +1,42 @@
+/* app.css */
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.navbar-nav .nav-link {
+    color: #495057;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+.nav-item.active .nav-link {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    min-width: 200px;
+}
+
+.nav-item.dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item.dropdown .dropdown-item .bi {
+    margin-right: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 8px;
+}

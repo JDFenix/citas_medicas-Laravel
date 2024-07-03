@@ -1,43 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8fafc;
-        }
-        .card {
-            border-radius: 20px;
-            box-shadow: 10px 4px 10px 10px #ccc;
-        }
-        .card img {
-            width: 100px;
-            height: 100px;
-        }
-    </style>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">{{ __('Iniciar Sesión') }}</div>
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3>{{ __('Iniciar Sesión') }}</h3>
+                    </div>
                     <div class="card-body">
+                        <div class="text-center mb-4">
+                            <img class="img-fluid" width="150" height="150" src="{{ asset('img/LogoMAGS.jpg') }}" alt="login-user">
+                        </div>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="text-center mb-4">
-                                <img src="{{ asset('img/medico-color.png') }}" alt="login-user">
-                            </div>
-
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Correo Electrónico') }}</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
 
@@ -46,8 +29,8 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
 
@@ -60,13 +43,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Iniciar Sesión') }}
                                 </button>
-                                <div class="container mt-4">
-                                    <div class="row justify-content-center">
-                                        <div class="col-auto">
-                                            <a href="login-facebook" class="text-decoration-none">
-                                                <i class="bi bi-facebook fs-2"></i>
-                                            </a>
-                                        </div>
+                                <div class="container mt-4 text-center">
                                         <div class="col-auto">
                                             <a href="login-google" class="text-decoration-none">
                                                 <i class="bi bi-google fs-2"></i>
@@ -75,9 +52,8 @@
                                     </div>
                                 </div>
 
-
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link justify-conten" href="{{ route('password.request') }}">
                                         {{ __('¿Olvidaste tu contraseña?') }}
                                     </a>
                                 @endif
