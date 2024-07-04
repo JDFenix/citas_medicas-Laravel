@@ -13,7 +13,7 @@ use App\Http\Controllers\lang\LanguageController;
 use App\Http\Controllers\user\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -23,7 +23,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get("/appointment/register", [AppointmentController::class, 'create'])->name("appointment.formRegister")->middleware("auth");
 Route::post("/appointment/registerP", [AppointmentController::class, 'store'])->name("appointment.post")->middleware("auth");
 Route::get("/appointment/main", [AppointmentController::class, 'index'])->name("appointment.main")->middleware("auth");
-
+Route::get("/appointment/{id}", [AppointmentController::class, 'show'])->name("appointment.show")->middleware("auth");
+Route::get("/appointment/{id}/edit", [AppointmentController::class, 'edit'])->name("appointment.edit")->middleware("auth");
+Route::put("/appointment/{id}", [AppointmentController::class, 'update'])->name("appointment.update")->middleware("auth");
+Route::delete("/appointment/{id}", [AppointmentController::class, 'destroy'])->name("appointment.destroy")->middleware("auth");
 
 //clinics
 Route::get("/clinic", [ClinicController::class, 'index'])->name("clinic.showIndex")->middleware("auth");

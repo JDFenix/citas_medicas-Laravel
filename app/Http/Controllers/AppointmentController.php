@@ -1,29 +1,20 @@
 <?php
 
+// app/Http/Controllers/AppointmentController.php
 namespace App\Http\Controllers;
 
-use App\Models\appointment;
+use App\Models\Appointment;
 use App\Models\Clinic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     public function index()
     {
-        $allAppointmentsByUser = Appointment::with('users')->get();
-        return view('appointment.main', compact('allAppointmentsByUser'));
+        $appointments = Appointment::all();
+        return view('appointment.main', compact('appointments'));
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $clinicsSpeciality = Clinic::all();
@@ -31,52 +22,72 @@ class AppointmentController extends Controller
             ->with(['clinicsSpeciality' => $clinicsSpeciality]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $dataAppointment = $request->validate([
-            'date' => 'nullable',
-            'users_id' => 'nullable',
-            'clinics_id' => 'nullable',
-            'doctors_id' => 'nullable'
+        $request->validate([
+            'date' => 'required|date',
+            'users_id' => 'required|exists:users,id',
+            'clinics_id' => 'required|exists:clinics,id',
+            'doctors_id' => 'required|exists:doctors,id',
         ]);
 
-        $newAppointment = Appointment::create($dataAppointment);
+        Appointment::create($request->all());
 
-        return redirect()->route('appointment.main')->with('success', 'Clínica creada exitosamente.');
+        return redirect()->route('appointment.index')->with('success', 'Appointment created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(appointment $appointment)
+    public function show($id)
     {
-        //
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+        }
+
+        return view('appointment.show', compact('appointment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(appointment $appointment)
+    public function edit($id)
     {
-        //
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+        }
+
+        return view('appointment.edit', compact('appointment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, appointment $appointment)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'users_id' => 'required|exists:users,id',
+            'clinics_id' => 'required|exists:clinics,id',
+            'doctors_id' => 'required|exists:doctors,id',
+        ]);
+
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+        }
+
+        $appointment->update($request->all());
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(appointment $appointment)
+    public function destroy($id)
     {
-        //
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+        }
+
+        $appointment->delete();
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment deleted successfully.');
     }
 }

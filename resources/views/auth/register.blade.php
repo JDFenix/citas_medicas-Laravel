@@ -85,10 +85,10 @@
                                 </a>
                             </div>
                         </div>
-
+<br>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4 d-flex justify-content-center align-items-center">
-                                <button type="submit" class="btn btn-primary btn-lg">
+                                <button style="width: 80%;margin-left:-35%" type="submit" class="btn btn-primary btn-lg">
                                     {{ __('Register') }}
                                 </button>
                             </div>

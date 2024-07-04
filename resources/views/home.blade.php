@@ -14,9 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <h4 class="text-center mb-4">{{ __('auth.You are logged in') }}</h4>
-                    
+  
                     <div class="row text-center mb-4">
                         <div class="col-md-4">
                             <img src="{{ asset('img/medico-color.png') }}" class="img-fluid mb-2" alt="Doctor Image">
@@ -24,20 +22,20 @@
                             <p>Meet our experienced and dedicated medical team.</p>
                         </div>
                         <div class="col-md-4">
-                            <img src="{{ asset('img/services.svg') }}" class="img-fluid mb-2" alt="Services Image">
+                            <img src="{{ asset('img/service doctor.jpg') }}" width="150" height="150" class="img-fluid mb-2 rounded-circle" alt="Services Image">
                             <h5>Our Services</h5>
                             <p>Explore the range of services we offer to our patients.</p>
                         </div>
                         <div class="col-md-4">
-                            <img src="{{ asset('img/contact.svg') }}" class="img-fluid mb-2" alt="Contact Image">
+                            <img src="{{ asset('img/contact doctor.jpg') }}" width="130" height="130" class="img-fluid mb-2 rounded-circle"  alt="Contact Image">
                             <h5>Contact Us</h5>
                             <p>Get in touch with us for appointments and inquiries.</p>
                         </div>
                     </div>
 
                     <div class="d-grid gap-2 d-md-block text-center">
-                        <a href="{{ route('appointment.main') }}" class="btn btn-primary btn-lg me-md-2 mb-2 button-expand">Book an Appointment</a>
-                        <a href="{{ route('clinic.showIndex') }}" class="btn btn-outline-primary btn-lg mb-2 button-expand">View Clinics</a>
+                        {{-- <a href="{{ route('appointment.main') }}" class="btn btn-primary btn-lg me-md-2 mb-2 button-expand">Book an Appointment</a>
+                        <a href="{{ route('clinic.showIndex') }}" class="btn btn-outline-primary btn-lg mb-2 button-expand">View Clinics</a> --}}
                     </div>
                 </div>
             </div>
