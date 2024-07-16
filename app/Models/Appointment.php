@@ -23,7 +23,7 @@ class Appointment extends Model
 
     public function doctors()
     {
-        return $this->hasOne(Doctor::class);
+        return $this->belongsTo(Doctor::class, 'doctors_id');
     }
 
     public function users()

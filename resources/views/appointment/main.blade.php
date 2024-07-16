@@ -25,9 +25,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Fecha</th>
+                        <th>Hora</th>
                         <th>Paciente</th>
-                        <th>ID Clínica</th>
-                        <th>ID Doctor</th>
+                        <th>Especialidad</th>
+                        <th>Doctor</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -35,12 +36,16 @@
                     @foreach ($appointments as $appointment)
                         <tr>
                             <td>{{ $appointment->date }}</td>
+                            <td></td>
                             <td>{{ $appointment->users->name }}</td>
                             <td>{{ $appointment->clinics->speciality }}</td>
-                            <td>{{ $appointment->doctors_id }}</td>
+                            <td>{{ $appointment->doctors->name }}</td>
                             <td>
-                                <a href="{{ route('appointment.show', $appointment->id) }}"
-                                    class="btn btn-info btn-sm me-2">Ver</a>
+
+                                <button type="button" class="btn btn-info btn-sm me-2" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Ver
+                                </button>
                                 <a href="{{ route('appointment.edit', $appointment->id) }}"
                                     class="btn btn-warning btn-sm me-2">Editar</a>
                                 <form action="{{ route('appointment.destroy', $appointment->id) }}" method="POST"
@@ -53,30 +58,27 @@
                             </td>
                         </tr>
 
-
-
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Launch demo modal
-                        </button>
-
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                            Cita para {{ $appointment->clinics->speciality }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <h5>Cita agendada para {{ $appointment->date }} a la hora ...</h5>
+                                        <p>Favor de estar puntual en la clinica de especialidad en
+                                            {{ $appointment->clinics->speciality }} en el consultorio
+                                            {{ $appointment->clinics->consultory }} a la hora previamente agendada ... le
+                                            atendera {{ $appointment->doctors->name }} {{ $appointment->doctors->paternal_surname }} {{ $appointment->doctors->maternal_surname }}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
                                         <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
