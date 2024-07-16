@@ -80,9 +80,8 @@ class ClinicController extends Controller
      */
     public function delete(string $cipherid)
     {
-        $id = decrypt($cipherid);
-        $clinic = Clinic::findOrFail($id);
-        $clinic->delete();
-        return $this->index();
+        $cipherid = decrypt($cipherid);
+   Clinic::destroy($cipherid);
+        return redirect()->route('clinic.showIndex')->with('success', 'Clínica eliminada exitosamente.');
     }
 }

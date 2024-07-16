@@ -35,9 +35,9 @@ Route::post("/clinic/register", [ClinicController::class, 'store'])->name("clini
 
 //clinic update/delete
 
-Route::post('/clinic/update', [ClinicController::class, 'update'])->name('clinic.update');
-Route::post('/clinic/get/{cipherid}', [ClinicController::class, 'edit'])->name('clinic.getClinic');
-Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->name('clinic.deleteClinic');
+Route::post('/clinic/update', [ClinicController::class, 'update'])->name('clinic.update')->middleware("auth");
+Route::post('/clinic/get/{cipherid}', [ClinicController::class, 'edit'])->name('clinic.getClinic')->middleware("auth");
+Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->name('clinic.deleteClinic')->middleware("auth");
 
 
 //google
@@ -51,6 +51,6 @@ Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang
 
 
 //user
-Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth");
+Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth")->middleware("auth");
 
-Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth");
+Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth")->middleware("auth");

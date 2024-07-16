@@ -12,8 +12,9 @@ return [
     'Remember Me' => 'Recuérdame',
     'Forgot Your Password?' => '¿Olvidaste tu contraseña?',
     'Logout' => 'Cerrar Sesión',
-    'You are logged in' => 'Has iniciado sesión',
+    'You are logged in correctly' => 'Has iniciado sesión correctamente',
     'Name' => 'Nombre',
     'Maternal Surname'=>'Apellido Materno',
     'Paternal Surname'=>'Apellido Paterno',
+    'failed' => 'Credenciales Erroneas',
 ];

@@ -24,9 +24,8 @@
             <table class="table table-hover table-bordered">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
                         <th>Fecha</th>
-                        <th>ID Usuario</th>
+                        <th>Paciente</th>
                         <th>ID Clínica</th>
                         <th>ID Doctor</th>
                         <th>Acciones</th>
@@ -35,10 +34,9 @@
                 <tbody>
                     @foreach ($appointments as $appointment)
                         <tr>
-                            <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->date }}</td>
-                            <td>{{ $appointment->users_id }}</td>
-                            <td>{{ $appointment->clinics_id }}</td>
+                            <td>{{ $appointment->users->name }}</td>
+                            <td>{{ $appointment->clinics->speciality }}</td>
                             <td>{{ $appointment->doctors_id }}</td>
                             <td>
                                 <a href="{{ route('appointment.show', $appointment->id) }}"
@@ -54,6 +52,36 @@
                                 </form>
                             </td>
                         </tr>
+
+
+
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>

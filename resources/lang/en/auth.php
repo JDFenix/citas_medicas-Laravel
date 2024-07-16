@@ -12,8 +12,9 @@ return [
     'Remember Me' => 'Remember Me',
     'Forgot Your Password?' => 'Forgot Your Password?',
     'Logout' => 'Logout',
-    'You are logged in' => 'You are logged in',
+    'You are logged in correctly' => 'You are logged in correctly',
     'Name' => 'Name',
     'Maternal Surname'=>'Maternal Surname',
     'Paternal Surname'=>'Paternal Surname',
+    'failed' => 'Bad Credentials',
 ];

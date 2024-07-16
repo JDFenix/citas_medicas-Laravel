@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3>{{ __('Dashboard') }}</h3>
+                    <h3>{{ __('dashboard.Dashboard') }}</h3>
                 </div>
                 <div class="card-body">
                     @if (session('status'))

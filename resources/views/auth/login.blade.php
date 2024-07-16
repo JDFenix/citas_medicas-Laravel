@@ -48,6 +48,10 @@
                                             <a href="login-google" class="text-decoration-none">
                                                 <i class="bi bi-google fs-2"></i>
                                             </a>
+                                            <a href="#" class="text-decoration-none">
+                                                <i class="bi bi-twitter-x"></i>
+                                            </a>
+                                            
                                         </div>
                                     </div>
                                 </div>

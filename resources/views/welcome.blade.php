@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
-
-</head>
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
 
 @extends('layouts.app')
 
@@ -20,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('dashboard.Welcome') }}</div>
                     @if (Route::has('login'))
                         <nav class="-mx-3 flex flex-1 justify-end">
                             @auth
@@ -29,7 +15,7 @@
                                     <div class="col-md-8">
                                         <div class="card shadow-lg border-0">
                                             <div class="card-header bg-primary text-white text-center">
-                                                <h3>{{ __('Dashboard') }}</h3>
+                                                <h3>{{ __('dashboard.Welcome') }} {{Auth::user()->name}}</h3>
                                             </div>
                                             <div class="card-body">
                                                 @if (session('status'))
@@ -39,7 +25,7 @@
                                                 @endif
                             
                                                 @auth
-                                                <h4 class="text-center mb-4">{{ __('auth.You are logged in') }}</h4>
+                                                <h4 class="text-center mb-4">{{ __('auth.You are logged in correctly') }} </h4>
                                                 @endauth
                                                 
                                                 
@@ -90,12 +76,3 @@
         </div>
     </div>
 @endsection
-
-
-<footer class="py-16 text-center text-sm text-black dark:text-white/70">
-
-</footer>
-
-
-</body>
-</html>
