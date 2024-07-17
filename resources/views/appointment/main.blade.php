@@ -36,7 +36,7 @@
                     @foreach ($appointments as $appointment)
                         <tr>
                             <td>{{ $appointment->date }}</td>
-                            <td></td>
+                            <td>{{ $appointment->hour }}</td>
                             <td>{{ $appointment->users->name }}</td>
                             <td>{{ $appointment->clinics->speciality }}</td>
                             <td>{{ $appointment->doctors->name }}</td>
@@ -70,11 +70,15 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5>Cita agendada para {{ $appointment->date }} a la hora ...</h5>
+                                        <h5>Cita agendada para {{ $appointment->date }} a la hora {{ $appointment->hour }}
+                                        </h5>
                                         <p>Favor de estar puntual en la clinica de especialidad en
                                             {{ $appointment->clinics->speciality }} en el consultorio
-                                            {{ $appointment->clinics->consultory }} a la hora previamente agendada ... le
-                                            atendera {{ $appointment->doctors->name }} {{ $appointment->doctors->paternal_surname }} {{ $appointment->doctors->maternal_surname }}</p>
+                                            {{ $appointment->clinics->consultory }} a la hora previamente agendada
+                                            {{ $appointment->hour }} le
+                                            atendera {{ $appointment->doctors->name }}
+                                            {{ $appointment->doctors->paternal_surname }}
+                                            {{ $appointment->doctors->maternal_surname }}</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
