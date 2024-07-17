@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Appointment;
+use App\Models\Clinic;
+use App\Models\Doctor;
 use App\Models\User;
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +17,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
+        $user = User::factory()->create([
+            'avatar' => 'https://api.dicebear.com/9.x/open-peeps/svg?seed=' . bcrypt('IsmaelMoralesBarrios'),
+            'role' => 'pacient',
+            'name' => 'Ismael',
+            'maternal_surname' => 'Morales',
+            'paternal_surname' => 'Barrios',
             'email' => 'test@example.com',
+            'password' => bcrypt('123456789'),
+        ]);
+
+        $clinic = Clinic::create([
+            'speciality' => 'Cardiologia',
+            'consultory' => '1'
+        ]);
+
+        $doctor = Doctor::create([
+            'name' => 'Anghel Raul',
+            'paternal_surname' => 'Sandoval',
+            'maternal_surname' => 'Martinez',
+        ]);
+
+
+        Appointment::create([
+            'date' => now(),
+            'hour' => Carbon::createFromTime(14, 30, 0),
+            'users_id' => $user->id,
+            'clinics_id' => $clinic->id,
+            'doctors_id' => $doctor->id
         ]);
     }
 }
