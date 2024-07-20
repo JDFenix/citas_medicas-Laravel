@@ -34,7 +34,7 @@ class AppointmentController extends Controller
 
         Appointment::create($request->all());
 
-        return redirect()->route('appointment.index')->with('success', 'Appointment created successfully.');
+        return redirect()->route('appointment.main')->with('success', 'Appointment created successfully.');
     }
 
     public function show($id)
@@ -42,7 +42,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::find($id);
 
         if (!$appointment) {
-            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+            return redirect()->route('appointment.main')->with('error', 'Appointment not found.');
         }
 
         return view('appointment.show', compact('appointment'));
@@ -51,44 +51,51 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         $appointment = Appointment::find($id);
-
+    
         if (!$appointment) {
-            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+            return redirect()->route('appointment.main')->with('error', 'Appointment not found.');
         }
-
-        return view('appointment.edit', compact('appointment'));
+    
+        $clinicsSpeciality = Clinic::all();
+        
+        return view('appointment.edit', compact('appointment', 'clinicsSpeciality'));
     }
+    
+
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'date' => 'required|date',
-            'users_id' => 'required|exists:users,id',
-            'clinics_id' => 'required|exists:clinics,id',
+            'hour' => 'required|date_format:H:i',
             'doctors_id' => 'required|exists:doctors,id',
+            'clinics_id' => 'required|exists:clinics,id',
         ]);
-
+    
         $appointment = Appointment::find($id);
-
-        if (!$appointment) {
-            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
-        }
-
-        $appointment->update($request->all());
-
-        return redirect()->route('appointment.index')->with('success', 'Appointment updated successfully.');
+        $appointment->date = $request->date;
+        $appointment->hour = $request->hour;
+        $appointment->doctors_id = $request->doctors_id;
+        $appointment->clinics_id = $request->clinics_id;
+        $appointment->save();
+    
+        return redirect()->route('appointment.main')->with('success', 'Appointment updated successfully');
     }
+    
+
+
+
 
     public function destroy($id)
     {
         $appointment = Appointment::find($id);
 
         if (!$appointment) {
-            return redirect()->route('appointment.index')->with('error', 'Appointment not found.');
+            return redirect()->route('appointment.main')->with('error', 'Appointment not found.');
         }
 
         $appointment->delete();
 
-        return redirect()->route('appointment.index')->with('success', 'Appointment deleted successfully.');
+        return redirect()->route('appointment.main')->with('success', 'Appointment deleted successfully.');
     }
 }
