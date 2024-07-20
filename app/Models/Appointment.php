@@ -17,17 +17,17 @@ class Appointment extends Model
         'doctors_id'
     ];
 
-    public function clinic()
+    public function clinics()
     {
         return $this->belongsTo(Clinic::class, 'clinics_id');
     }
 
-    public function doctor()
+    public function doctors()
     {
         return $this->belongsTo(Doctor::class, 'doctors_id');
     }
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'users_id');
     }
