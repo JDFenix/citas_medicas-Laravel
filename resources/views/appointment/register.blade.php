@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('MAGS', 'Agendar Cita')
+@section('tittle', 'Agendar Cita')
 
 @push('styles')
     <link href="{{ asset('css/shadowCustom.css') }}" rel="stylesheet">
@@ -17,7 +17,7 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
-                                    <h3>Agendar Cita para {{ Auth::user()->name }}</h3>
+                                    <h3>Agendar Cita Para {{ Auth::user()->name }}</h3>
                                     <hr class="border border-secondary border-2 opacity-10 custom-hr">
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
 
-                            <div class="row justify-content-center mt-4">
+                            <div class="row justify-content-center mt-5">
 
                                 <div class="btn-group col-md-4" role="group">
                                     <button type="button" class="btn btn-primary btn-lg btn-custom">Regresar

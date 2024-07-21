@@ -1,60 +1,76 @@
 @extends('layouts.app')
 
+@section('tittle')
+    Listado de Citas {{ Auth::user()->name }}
+@endsection
+
+@push('styles')
+    <link href="{{ asset('css/shadowCustom.css') }}" rel="stylesheet">
+@endpush
+
+
 @section('content')
     <div class="container mt-5">
-        <h2 class="mb-4">{{ __('Appointments') }}</h2>
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        <div class="row justify-content-between align-items-center">
+
+            <div class="col-md-8 d-flex align-items-center">
+                <h3 class="me-3">Listado de citas activas para {{ Auth::user()->name }}</h3>
+                <a href="{{ route('appointment.formRegister') }}"
+                    class="btn btn-primary">{{ __('Create New Appointment') }}</a>
             </div>
-        @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="col-md-12">
+                <hr class="border border-secondary border-2 opacity-10 custom-hr">
             </div>
-        @endif
-
-        <div class="mb-4">
-            <a href="{{ route('appointment.formRegister') }}" class="btn btn-primary">{{ __('Create New Appointment') }}</a>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>{{ __('Date') }}</th>
-                        <th>{{ __('Hour') }}</th>
-                        <th>{{ __('Patient Name') }}</th>
-                        <th>{{ __('Speciality') }}</th>
-                        <th>{{ __('Doctor Name') }}</th>
-                        <th>{{ __('Actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($appointments as $appointment)
-                        <tr>
-                            <td>{{ $appointment->date }}</td>
-                            <td>{{ $appointment->hour }}</td>
-                            <td>{{ $appointment->users->name }}</td>
-                            <td>{{ $appointment->clinics }}</td>
-                            <td>{{ $appointment->doctors->name }}</td>
-                            <td>
-                                <a href="{{ route('appointment.show', $appointment->id) }}" class="btn btn-info btn-sm me-2">{{ __('Show') }}</a>
-                                <a href="{{ route('appointment.edit', $appointment->id) }}" class="btn btn-warning btn-sm me-2">{{ __('Edit') }}</a>
-                                <form action="{{ route('appointment.destroy', $appointment->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete') }}</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+        <div class="row justify-content-center">
+
+            @foreach ($appointments as $appointment)
+
+                <div class="col-md-3 me-5 mt-5">
+                    <div class="card custom-shadow-card">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="d-flex justify-content-end">
+                                    <h5>{{ $appointment->date }}</h5>
+                                </div>
+                                <hr class="border border-secondary border-2 opacity-10 custom-hr">
+
+                                <div class="d-flex justify-content-center">
+                                    <h4>Cita para ...</h4>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3">
+                                    <p>Consultorio: ...</p>
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    <p>Doctor:{{ $appointment->doctors->name }}</p>
+
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    <p>Hora: {{ $appointment->hour }}</p>
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    <p>Paciente: {{ $appointment->users->name }}</p>
+                                </div>
+
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="btn-group col-md-6">
+                                    <button type="button"
+                                        class="btn btn-primary btn-lg btn-custom btn-sm custom-shadow-button">Reagendar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
         </div>
     </div>
 @endsection
