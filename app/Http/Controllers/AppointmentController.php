@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Clinic;
 use Illuminate\Http\Request;
+use App\Models\Doctor;
 
 class AppointmentController extends Controller
 {
@@ -19,23 +20,31 @@ class AppointmentController extends Controller
     public function create()
     {
         $clinicsSpeciality = Clinic::all();
+        //$clinics_id = $clinicsSpeciality->id;
+        $doctorSpecific = Doctor::all()->first();
         return view("appointment.register")
-            ->with(['clinicsSpeciality' => $clinicsSpeciality]);
+            ->with([
+                'clinicsSpeciality' => $clinicsSpeciality,
+                'doctorSpecific' => $doctorSpecific
+            ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'date' => 'required|date',
+            'hour' => 'required',
             'users_id' => 'required|exists:users,id',
             'clinics_id' => 'required|exists:clinics,id',
             'doctors_id' => 'required|exists:doctors,id',
         ]);
-
+    
+        // Crear la cita
         Appointment::create($request->all());
-
+    
         return redirect()->route('appointment.main')->with('success', 'Appointment created successfully.');
     }
+    
 
     public function show($id)
     {
@@ -51,16 +60,16 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         $appointment = Appointment::find($id);
-    
+
         if (!$appointment) {
             return redirect()->route('appointment.main')->with('error', 'Appointment not found.');
         }
-    
+
         $clinicsSpeciality = Clinic::all();
-        
+
         return view('appointment.edit', compact('appointment', 'clinicsSpeciality'));
     }
-    
+
 
 
     public function update(Request $request, $id)
@@ -71,17 +80,17 @@ class AppointmentController extends Controller
             'doctors_id' => 'required|exists:doctors,id',
             'clinics_id' => 'required|exists:clinics,id',
         ]);
-    
+
         $appointment = Appointment::find($id);
         $appointment->date = $request->date;
         $appointment->hour = $request->hour;
         $appointment->doctors_id = $request->doctors_id;
         $appointment->clinics_id = $request->clinics_id;
         $appointment->save();
-    
+
         return redirect()->route('appointment.main')->with('success', 'Appointment updated successfully');
     }
-    
+
 
 
 

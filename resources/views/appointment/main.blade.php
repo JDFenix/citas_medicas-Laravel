@@ -39,9 +39,9 @@
                         <tr>
                             <td>{{ $appointment->date }}</td>
                             <td>{{ $appointment->hour }}</td>
-                            <td>{{ $appointment->user->name }}</td>
-                            <td>{{ $appointment->clinic->speciality }}</td>
-                            <td>{{ $appointment->doctor->name }}</td>
+                            <td>{{ $appointment->users->name }}</td>
+                            <td>{{ $appointment->clinics }}</td>
+                            <td>{{ $appointment->doctors->name }}</td>
                             <td>
                                 <a href="{{ route('appointment.show', $appointment->id) }}" class="btn btn-info btn-sm me-2">{{ __('Show') }}</a>
                                 <a href="{{ route('appointment.edit', $appointment->id) }}" class="btn btn-warning btn-sm me-2">{{ __('Edit') }}</a>

@@ -40,3 +40,19 @@
     object-fit: cover;
     margin-right: 8px;
 }
+
+.button-expand:hover {
+    transform: scale(1.03)
+}
+
+.button-expand {
+    transition: transform ease-in-out 0.3s
+}
+
+.text-expand:hover {
+    transform: scale(1.06)
+}
+
+.text-expand {
+    transition: transform ease-in-out 0.3s
+}
