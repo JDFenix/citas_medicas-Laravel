@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -14,14 +15,15 @@ class Doctor extends Model
         'maternal_surname',
     ];
 
-
-    use HasFactory;
-
-
-
-
-    public function appointment()
+   
+    public function appointments()
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Appointment::class, 'doctor_id');
+    }
+
+  
+    public function clinic()
+    {
+        return $this->belongsTo(Clinic::class, 'clinic_id');
     }
 }

@@ -33,20 +33,27 @@
                                 href="{{ route('clinic.showIndex') }}">{{ __('appointment.Clinics') }}</a>
                         </li>
                     @endif
+                    
                 </ul>
             @endif
             <ul class="navbar-nav ms-auto">
                 @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item text-expand">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
-                        </li>
+                @if (Route::has('login'))
+                <li class="nav-item text-expand">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
+                </li>
                     @endif
                     @if (Route::has('register'))
                         <li class="nav-item text-expand">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('auth.Register') }}</a>
                         </li>
                     @endif
+                    @if (Route::has('doctor.main'))
+                        <li class="nav-item text-expand">
+                            <a class="nav-link" href="{{ route('doctor.main') }}">{{ __('Doctor') }}</a>
+                        </li>
+                    @endif
+
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center"

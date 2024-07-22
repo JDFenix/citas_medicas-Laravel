@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\DeleteUserController;
 use App\Http\Controllers\lang\LanguageController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\DoctorController;
 
 Route::get('/', function () {
     return view('home');
@@ -27,6 +28,17 @@ Route::get("/appointment/{id}", [AppointmentController::class, 'show'])->name("a
 Route::get("/appointment/{id}/edit", [AppointmentController::class, 'edit'])->name("appointment.edit")->middleware("auth");
 Route::put("/appointment/{id}", [AppointmentController::class, 'update'])->name("appointment.update")->middleware("auth");
 Route::delete("/appointment/{id}", [AppointmentController::class, 'destroy'])->name("appointment.destroy")->middleware("auth");
+
+
+// Doctor
+Route::get('/doctor/main', [DoctorController::class, 'index'])->name('doctor.main');
+Route::get('/doctor/register', [DoctorController::class, 'create'])->name('doctor.formRegister');
+Route::post('/doctor/store', [DoctorController::class, 'store'])->name('doctor.store');
+Route::get('/doctor/{id}/edit', [DoctorController::class, 'edit'])->name('doctor.edit');
+Route::put('/doctor/{id}', [DoctorController::class, 'update'])->name('doctor.update')->middleware('auth');
+Route::delete('/doctor/{id}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
+
+
 
 //clinics
 Route::get("/clinic", [ClinicController::class, 'index'])->name("clinic.showIndex")->middleware("auth");
