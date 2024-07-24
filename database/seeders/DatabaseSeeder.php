@@ -19,6 +19,17 @@ class DatabaseSeeder extends Seeder
     {
 
         $user = User::factory()->create([
+            'avatar' => 'https://api.dicebear.com/9.x/open-peeps/svg?seed=' . bcrypt('JDFENIX'),
+            'role' => 'admin',
+            'name' => 'Oscar',
+            'maternal_surname' => 'Mata',
+            'paternal_surname' => 'Alegria',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('123456789'),
+        ]);
+
+
+        $user = User::factory()->create([
             'avatar' => 'https://api.dicebear.com/9.x/open-peeps/svg?seed=' . bcrypt('IsmaelMoralesBarrios'),
             'role' => 'pacient',
             'name' => 'Ismael',
@@ -37,6 +48,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Anghel Raul',
             'paternal_surname' => 'Sandoval',
             'maternal_surname' => 'Martinez',
+            'clinics_id' => $clinic->id
         ]);
 
 

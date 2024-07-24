@@ -56,10 +56,13 @@
                         <label for="speciality"
                             class="col-md-4 col-form-label text-md-start">{{ __('appointment.speciality') }}</label>
                         <div class="col-md-9">
-                            <input id="speciality" type="text"
-                                class="form-control form-control-lg shadow rounded @error('speciality') is-invalid @enderror"
-                                name="speciality" value="{{ old('speciality') }}" required autocomplete="speciality"
-                                autofocus>
+                            <select class="form-select form-control-lg shadow rounded" aria-label="Default select example"
+                                id="clinics_id" name="clinics_id" required>
+                                <option selected>Especialidad</option>
+                                @foreach ($clinicsSpeciality as $speciality)
+                                    <option value="{{ $speciality->id }}">{{ $speciality->speciality }}</option>
+                                @endforeach
+                            </select>
                             @error('speciality')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -94,7 +97,7 @@
                                     <td scope="row">{{ $doctor->name }}</td>
                                     <td>{{ $doctor->paternal_surname }}</td>
                                     <td>{{ $doctor->maternal_surname }}</td>
-                                    <td>{{ $doctor->speciality }}</td>
+                                    <td>{{ $doctor->clinics->speciality }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -138,12 +141,12 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <div class="form-group row mb-3">
+                                        <div class="form-group row mb-4">
                                             <label for="name"
                                                 class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                             <div class="col-md-6">
                                                 <input id="name" type="text"
-                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    class="form-control form-control-lg shadow rounded @error('name') is-invalid @enderror"
                                                     name="name" value="{{ old('name', $doctor->name) }}" required
                                                     autocomplete="name" autofocus>
                                                 @error('name')
@@ -154,12 +157,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row mb-3">
+                                        <div class="form-group row mb-4">
                                             <label for="paternal_surname"
                                                 class="col-md-4 col-form-label text-md-end">{{ __('Paternal Surname') }}</label>
                                             <div class="col-md-6">
                                                 <input id="paternal_surname" type="text"
-                                                    class="form-control @error('paternal_surname') is-invalid @enderror"
+                                                    class="form-control form-control-lg shadow rounded @error('paternal_surname') is-invalid @enderror"
                                                     name="paternal_surname"
                                                     value="{{ old('paternal_surname', $doctor->paternal_surname) }}"
                                                     required autocomplete="paternal_surname" autofocus>
@@ -170,13 +173,12 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-                                        <div class="form-group row mb-3">
+                                        <div class="form-group row mb-4">
                                             <label for="maternal_surname"
                                                 class="col-md-4 col-form-label text-md-end">{{ __('Maternal Surname') }}</label>
                                             <div class="col-md-6">
                                                 <input id="maternal_surname" type="text"
-                                                    class="form-control @error('maternal_surname') is-invalid @enderror"
+                                                    class="form-control form-control-lg shadow rounded @error('maternal_surname') is-invalid @enderror"
                                                     name="maternal_surname"
                                                     value="{{ old('maternal_surname', $doctor->maternal_surname) }}"
                                                     required autocomplete="maternal_surname" autofocus>
@@ -187,16 +189,51 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">{{ __('Update Doctor') }}</button>
+                                        <div class="form-group row mb-4">
+                                            <label for="clinics_id"
+                                                class="col-md-4 col-form-label text-md-end">{{ __('appointment.speciality') }}</label>
+                                            <div class="col-md-6">
+                                                <select class="form-select form-control-lg shadow rounded"
+                                                    aria-label="Default select example" id="clinics_id" name="clinics_id"
+                                                    required>
+                                                    <option selected>Especialidad</option>
+                                                    @foreach ($clinicsSpeciality as $speciality)
+                                                        <option value="{{ $speciality->id }}">
+                                                            {{ $speciality->speciality }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('clinics_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-secondary btn-lg"
+                                                data-bs-dismiss="modal">{{ __('Close') }}</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-lg">{{ __('Update') }}</button>
+                                        </div>
+
                                     </form>
-                                    <form action="{{ route('doctor.destroy', $doctor->id) }}" method="POST"
-                                        style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('{{ __('confirm.Are you sure?') }}')">{{ __('Delete') }}</button>
-                                    </form>
-                                    </form>
+
+                                    <div class="col-md-12">
+                                        <form action="{{ route('doctor.destroy', $doctor->id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-lg"
+                                                onclick="return confirm('{{ __('confirm.Are you sure?') }}')">{{ __('Delete') }}</button>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

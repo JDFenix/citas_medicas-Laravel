@@ -13,6 +13,7 @@ class Doctor extends Model
         'name',
         'paternal_surname',
         'maternal_surname',
+        'clinics_id',
     ];
 
    
@@ -22,8 +23,8 @@ class Doctor extends Model
     }
 
   
-    public function clinic()
+    public function clinics()
     {
-        return $this->belongsTo(Clinic::class, 'clinic_id');
+        return $this->belongsTo(Clinic::class, 'clinics_id');
     }
 }

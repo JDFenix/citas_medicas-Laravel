@@ -14,7 +14,8 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = Doctor::paginate(8); 
-        return view('doctor.main', compact('doctors'));
+        $clinicsSpeciality = Clinic::all();
+        return view('doctor.main', compact('doctors', 'clinicsSpeciality'));
     }    
 
     /**
@@ -35,6 +36,7 @@ class DoctorController extends Controller
             'name' => 'required|string|max:255',
             'paternal_surname' => 'required|string|max:255',
             'maternal_surname' => 'required|string|max:255',
+            'clinics_id' => 'required|exists:clinics,id',
         ]);
     
         Doctor::create($request->all());
