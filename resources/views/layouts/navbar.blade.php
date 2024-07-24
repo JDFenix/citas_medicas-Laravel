@@ -4,9 +4,8 @@
             <img src="{{ asset('img/LogoMAGSComplete.jpg') }}" alt="Logo" class="rounded-circle">
             <span class="ms-2">{{ config('app.name', 'Laravel') }}</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,33 +31,31 @@
                             <a class="nav-link"
                                 href="{{ route('clinic.showIndex') }}">{{ __('appointment.Clinics') }}</a>
                         </li>
+
+                        <li class="nav-item text-expand">
+                            <a class="nav-link" href="{{ route('doctor.main') }}">{{ __('Doctor') }}</a>
+                        </li>
                     @endif
-                    
+
+
                 </ul>
             @endif
             <ul class="navbar-nav ms-auto">
                 @guest
-                @if (Route::has('login'))
-                <li class="nav-item text-expand">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
-                </li>
+                    @if (Route::has('login'))
+                        <li class="nav-item text-expand">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
+                        </li>
                     @endif
                     @if (Route::has('register'))
                         <li class="nav-item text-expand">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('auth.Register') }}</a>
                         </li>
                     @endif
-                    @if (Route::has('doctor.main'))
-                        <li class="nav-item text-expand">
-                            <a class="nav-link" href="{{ route('doctor.main') }}">{{ __('Doctor') }}</a>
-                        </li>
-                    @endif
-
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center"
-                            href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <img class="rounded-circle avatar" src="{{ Auth::user()->avatar }}" alt="User Avatar">
                             <span class="user-name">{{ Auth::user()->name }}</span>
                         </a>
