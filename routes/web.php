@@ -66,3 +66,4 @@ Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang
 Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth")->middleware("auth");
 
 Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth")->middleware("auth");
+
