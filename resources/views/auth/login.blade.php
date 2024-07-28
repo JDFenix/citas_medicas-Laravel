@@ -45,11 +45,11 @@
                                 </button>
                                 <div class="container mt-4 text-center">
                                         <div class="col-auto">
-                                            <a href="login-google" class="text-decoration-none">
+                                            <a href="login-google" class="text-decoration-none me-3">
                                                 <i class="bi bi-google fs-2"></i>
                                             </a>
-                                            <a href="#" class="text-decoration-none">
-                                                <i class="bi bi-twitter-x"></i>
+                                            <a href="auth/twitter" class="text-decoration-none">
+                                                <i class="bi bi-twitter-x fs-2 text-dark"></i>
                                             </a>
                                             
                                         </div>

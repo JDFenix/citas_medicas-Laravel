@@ -14,7 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-  
+
                     <div class="row text-center mb-4">
                         <div class="col-md-4">
                             <img src="{{ asset('img/medico-color.png') }}" class="img-fluid mb-2" alt="Doctor Image">

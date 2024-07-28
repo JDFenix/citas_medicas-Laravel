@@ -12,7 +12,7 @@ class ClinicController extends Controller
      */
     public function index()
     {
-        $clinics = Clinic::all();
+        $clinics = Clinic::paginate(10);
         return view('clinic.index', compact('clinics'));
     }
 

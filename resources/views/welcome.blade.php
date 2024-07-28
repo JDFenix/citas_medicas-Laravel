@@ -23,12 +23,12 @@
                                                         {{ session('status') }}
                                                     </div>
                                                 @endif
-                            
+
                                                 @auth
                                                 <h4 class="text-center mb-4">{{ __('auth.You are logged in correctly') }} </h4>
                                                 @endauth
-                                                
-                                                
+
+
                                                 <div class="row text-center mb-4">
                                                     <div class="col-md-4">
                                                         <img src="{{ asset('img/medico-color.png') }}" class="img-fluid mb-2" alt="Doctor Image">
@@ -46,7 +46,7 @@
                                                         <p>Get in touch with us for appointments and inquiries.</p>
                                                     </div>
                                                 </div>
-                            
+
                                                 <div class="d-grid gap-2 d-md-block text-center">
                                                     <a href="{{ route('appointment.main') }}" class="btn btn-primary btn-lg me-md-2 mb-2 button-expand">Book an Appointment</a>
                                                     <a href="{{ route('clinic.showIndex') }}" class="btn btn-outline-primary btn-lg mb-2 button-expand">View Clinics</a>

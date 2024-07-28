@@ -64,5 +64,10 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "env": {
+        "TWITTER_CLIENT_ID": "tu_cliente_id",
+        "TWITTER_CLIENT_SECRET": "tu_cliente_secreto",
+        "TWITTER_REDIRECT_URI": "http://127.0.0.1:8000/auth/twitter/callback"
+    }
 }

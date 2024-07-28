@@ -7,8 +7,9 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class GoogleController extends Controller
 {
 
 
@@ -43,4 +44,8 @@ class AuthController extends Controller
         return redirect('/home');
     }
 
+
+
+
+    
 }

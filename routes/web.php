@@ -6,12 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClinicController;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\DeleteUserController;
 use App\Http\Controllers\lang\LanguageController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\Auth\TwitterController;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/', function () {
     return view('home');
@@ -51,11 +50,15 @@ Route::post('/clinic/update', [ClinicController::class, 'update'])->name('clinic
 Route::post('/clinic/get/{cipherid}', [ClinicController::class, 'edit'])->name('clinic.getClinic')->middleware("auth");
 Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->name('clinic.deleteClinic')->middleware("auth");
 
-
+///////////////// Services Oauth2
 //google
+Route::get('login-google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('google-callback', [GoogleCOntroller::class, 'callbackGoogle']);
 
-Route::get('login-google', [AuthController::class, 'redirectToGoogle']);
-Route::get('google-callback', [AuthController::class, 'callbackGoogle']);
+
+// X
+Route::get('auth/twitter', [TwitterController::class, 'redirectToTwitter']);
+Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCallback']);
 
 
 //change language
