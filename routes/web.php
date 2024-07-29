@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClinicController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\lang\LanguageController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\TwitterController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\Auth\GoogleController;
 Route::get('/', function () {
     return view('home');
 });
+
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -62,16 +62,31 @@ Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCal
 
 
 //change language
-Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
+
+ 
+Route::get('/greeting/{locale}', function (string $locale) {
+    if (! in_array($locale, ['en', 'es'])) {
+        abort(400);
+    }
+ 
+    session(['locale' => $locale]);
+    App::setLocale($locale);
+ 
+
+    \Log::info('Locale set to: ' . $locale);
+    \Log::info('Current locale after setting: ' . App::getLocale());
+    return redirect()->back();
+});
 
 
 //user
 Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth")->middleware("auth");
 
 Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth")->middleware("auth");
+
 Route::post('/user/profile/update', [UserController::class, 'updateProfile'])->name('user.updateProfile')->middleware('auth');
+
 Route::middleware('auth')->group(function () {
     Route::post('/user/email/update', [UserController::class, 'updateEmail'])->name('user.updateEmail');
     Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 });
-
