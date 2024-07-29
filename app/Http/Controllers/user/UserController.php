@@ -17,9 +17,14 @@ class UserController extends Controller
         $pixelArtUrls = array_slice($avatarUrls, 0, 10);
         $avataaarsUrls = array_slice($avatarUrls, 10, 10);
         $adventurerUrls = array_slice($avatarUrls, 20, 10);
+        
+        $user = Auth::user();
+        $isExternalAuth = !empty($user->external_auth);
+        $isPasswordSet = !empty($user->password);
     
-        return view("user.profile", compact('pixelArtUrls', 'avataaarsUrls', 'adventurerUrls'));
+        return view("user.profile", compact('pixelArtUrls', 'avataaarsUrls', 'adventurerUrls', 'isExternalAuth', 'isPasswordSet'));
     }
+    
 
     public function updateProfile(Request $request)
     {

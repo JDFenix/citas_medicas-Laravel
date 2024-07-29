@@ -121,44 +121,39 @@
                             </div>
 
                             <div id="password-auth" class="content-section" style="display:none;">
-
-                                <div class="col-md-12 d-flex justify-content-center ">
-                                    <h3 class="card-title">Contraseña y Autenticación</h3>
-                                    <hr>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                    <form action="{{ route('user.updatePassword') }}" method="POST">
-                                        @csrf
-                                        <label for="current-password">Contraseña actual:</label>
-                                        <input type="password" name="current_password" class="form-control" id="current-password" placeholder="Contraseña actual">
-
-                                        <label class="mt-3" for="new-password">Nueva contraseña:</label>
-                                        <input type="password" name="new_password" class="form-control" id="new-password" placeholder="Nueva contraseña">
-
-                                        <label class="mt-3" for="new-password-confirmation">Confirmar nueva contraseña:</label>
-                                        <input type="password" name="new_password_confirmation" class="form-control" id="new-password-confirmation" placeholder="Confirmar nueva contraseña">
-
-                                        <div class="form-text col-12 d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-success mt-3">Actualizar</button>
-                                        </div>
-                                    </form>
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <h3 class="card-title">Contraseña y Autenticación</h3>
+                                        <hr>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <label for="mobile_phone">Numero de telefono:</label>
-                                        <input type="text" class="form-control" name="mobile_phone" id="mobile_phone"
-                                            placeholder="Numero de telefono">
-                                    </div>
+                                    @if(!$isExternalAuth && $isPasswordSet)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form action="{{ route('user.updatePassword') }}" method="post">
+                                                @csrf
+                                                <label for="current-password">Contraseña actual:</label>
+                                                <input type="password" class="form-control" name="current_password" id="current-password" placeholder="Contraseña actual">
 
-                                    <div class="col-md-auto mt-3 p-1">
-                                        <div class="p-2 bg-success text-white rounded">
-                                            Numero de telefono verificado
+                                                <label class="mt-3" for="new-password">Nueva contraseña:</label>
+                                                <input type="password" class="form-control" name="new_password" id="new-password" placeholder="Nueva contraseña">
+
+                                                <label class="mt-3" for="new-password-confirmation">Confirmar nueva contraseña:</label>
+                                                <input type="password" class="form-control" name="new_password_confirmation" id="new-password-confirmation" placeholder="Confirmar nueva contraseña">
+
+                                                <div class="form-text col-12 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-3">Actualizar</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <p class="text-muted">No puede cambiar su contraseña ya que se registró con una cuenta externa (Google/Twitter).</p>
+                                    </div>
+                                    @endif
+                
+                                    </div>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
