@@ -31,21 +31,20 @@
                                     <hr>
                                 </div>
 
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-3 d-flex flex-column align-items-center">
-                                            <div id="avatar-container"
-                                                class="mb-4  justify-content-start align-items-start">
-                                                <label for="avatarInput" class="avatar-label">
-                                                    <h6 class="d-flex justify-content-center">Avatar:</h6>
-                                                    <img data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                        data-bs-toggle="tooltip" y title="Cambiar Avatar"
-                                                        src="{{ Auth::user()->avatar }}" alt="Avatar"
-                                                        style="background: #5c5c5cbe" class="rounded-circle avatar-form"
-                                                        width="180" height="180">
-                                                </label>
-                                            </div>
+                                <form action="{{ route('user.updateProfile') }}" method="POST">
+                                        @csrf
+                                        <div class="row">
+                                         <div class="col-md-3 d-flex flex-column align-items-center">
+                                        <div id="avatar-container" class="mb-4 justify-content-start align-items-start">
+                                            <label for="avatarInput" class="avatar-label">
+                                                <h6 class="d-flex justify-content-center">Avatar:</h6>
+                                                <img data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-toggle="tooltip" title="Cambiar Avatar"
+                                                    src="{{ Auth::user()->avatar }}" alt="Avatar" style="background: #5c5c5cbe" class="rounded-circle avatar-form"
+                                                    width="180" height="180">
+                                            </label>
                                         </div>
+                                    </div>
+
 
                                         <div class="col-md-9">
                                             <div class="row">
@@ -53,13 +52,13 @@
                                                     <div class="form-group">
                                                         <label for="login-method">Modo de inicio de sesión</label>
                                                         <input type="text" class="form-control" id="login-method"
-                                                            value="{{ Auth::user()->external_auth }}" disabled>
+                                                               value="Google" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="birth-date">Fecha de nacimiento</label>
-                                                        <input type="date" class="form-control" id="birth-date">
+                                                        <input type="date" class="form-control" name="birth_date" value="{{ Auth::user()->birth_date }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,30 +66,26 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="first-name">Nombre(s) del paciente</label>
-                                                        <input type="text" class="form-control" id="first-name"
-                                                            placeholder="Nombre(s) del paciente">
+                                                        <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" placeholder="Nombre(s) del paciente">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="last-name">Apellido paterno</label>
-                                                        <input type="text" class="form-control" id="last-name"
-                                                            placeholder="Apellido paterno">
+                                                        <input type="text" class="form-control" name="paternal_surname" value="{{ Auth::user()->paternal_surname }}" placeholder="Apellido paterno">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="middle-name">Apellido materno</label>
-                                                        <input type="text" class="form-control" id="middle-name"
-                                                            placeholder="Apellido materno">
+                                                        <input type="text" class="form-control" name="maternal_surname" value="{{ Auth::user()->maternal_surname }}" placeholder="Apellido materno">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="d-flex justify-content-center mt-3">
-                                                        <button type="submit" class="btn btn-success mr-2 me-3">Confirmar
-                                                        </button>
+                                                    <button type="submit" class="btn btn-success mr-2 me-3">Confirmar</button>
                                                         <button type="button" class="btn btn-danger">Eliminar
                                                             cuenta
                                                         </button>
@@ -101,6 +96,7 @@
                                     </div>
 
                                 </form>
+
                             </div>
 
                             <div id="email" class="content-section" style="display:none;">
@@ -111,15 +107,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <form action="" method="post">
-                                                <label for="email">Correo electronico:</label>
-                                                <input type="email" value="{{ Auth::user()->email }}" class="form-control"
-                                                    id="email" placeholder="Correo electronico">
-                                                <div class="form-text col-12 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-success mt-3">Actualizar
-                                                    </button>
-                                                </div>
-                                            </form>
+                                        <form action="{{ route('user.updateEmail') }}" method="POST">
+                                            @csrf
+                                            <label for="email">Correo electrónico:</label>
+                                            <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control" id="email" placeholder="Correo electrónico">
+                                            <div class="form-text col-12 d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-success mt-3">Actualizar</button>
+                                            </div>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -133,23 +128,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form action="" method="post">
-                                            <label for="current-password">Contraseña actual:</label>
-                                            <input type="password" class="form-control" id="current-password"
-                                                placeholder="Contraseña actual">
+                                    <form action="{{ route('user.updatePassword') }}" method="POST">
+                                        @csrf
+                                        <label for="current-password">Contraseña actual:</label>
+                                        <input type="password" name="current_password" class="form-control" id="current-password" placeholder="Contraseña actual">
 
+                                        <label class="mt-3" for="new-password">Nueva contraseña:</label>
+                                        <input type="password" name="new_password" class="form-control" id="new-password" placeholder="Nueva contraseña">
 
-                                            <label class="mt-3" for="new-password">Nueva contraseña:</label>
-                                            <input type="password" class="form-control" id="new-password"
-                                                placeholder="Nueva contraseña">
+                                        <label class="mt-3" for="new-password-confirmation">Confirmar nueva contraseña:</label>
+                                        <input type="password" name="new_password_confirmation" class="form-control" id="new-password-confirmation" placeholder="Confirmar nueva contraseña">
 
-
-                                            <div class="form-text col-12 d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-success mt-3">Actualizar
-                                                </button>
-                                            </div>
-
-                                        </form>
+                                        <div class="form-text col-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-success mt-3">Actualizar</button>
+                                        </div>
+                                    </form>
                                     </div>
                                 </div>
                                 <div class="row mt-3">

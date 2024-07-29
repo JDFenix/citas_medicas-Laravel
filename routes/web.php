@@ -69,4 +69,9 @@ Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang
 Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth")->middleware("auth");
 
 Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth")->middleware("auth");
+Route::post('/user/profile/update', [UserController::class, 'updateProfile'])->name('user.updateProfile')->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::post('/user/email/update', [UserController::class, 'updateEmail'])->name('user.updateEmail');
+    Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+});
 
