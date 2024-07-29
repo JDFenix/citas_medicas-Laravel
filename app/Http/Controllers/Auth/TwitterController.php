@@ -35,7 +35,7 @@ class TwitterController extends Controller
                 'email' => $twitterUser->email,
                 'avatar' => $twitterUser->avatar,
                 'external_id' => $twitterUser->id,
-                'external_auth' => 'twitter',
+                'external_auth' => 'Twitter',
             ]);
 
             Auth::login($user);

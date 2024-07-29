@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'maternal_surname' => $data['paternal_surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'external_auth' => "Normal",
         ]);
     }
 }

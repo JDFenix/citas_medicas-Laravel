@@ -15,13 +15,13 @@ class WhatsAppController extends Controller
 
     public function sendCode(Request $request)
     {
-
         try {
             $user_id = $request['id_user'];
             $name = $request['name'];
             $mobile_phone = $request['mobile_phone'];
             $code_verification = rand(1000, 9999);
-
+            $expires_at = now()->addMinutes(10);
+    
             $data = array(
                 "messaging_product" => "whatsapp",
                 "to" => "+52" . $mobile_phone,
@@ -48,10 +48,8 @@ class WhatsAppController extends Controller
                     )
                 )
             );
-
-
+    
             $data_string = json_encode($data);
-
             $curl = curl_init($this->url);
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
@@ -65,16 +63,15 @@ class WhatsAppController extends Controller
                     'Content-Length: ' . strlen($data_string)
                 )
             );
-
             curl_exec($curl);
             curl_close($curl);
-
+    
             $user = User::findOrFail($user_id);
             $user->mobile_phone = $mobile_phone;
             $user->code_verification = $code_verification;
+            $user->code_verification_expires_at = $expires_at;
             $user->save();
-            
-
+    
             return redirect()->back()->with('success', 'Mensaje enviado correctamente');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Error al enviar el mensaje');

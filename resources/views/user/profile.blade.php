@@ -168,7 +168,7 @@
                                         <div class="col-md-12 ">
                                             <p class="text-muted text-center">No puede cambiar su contraseña ya que se
                                                 registró con una
-                                                cuenta externa (Google/Twitter).</p>
+                                                cuenta externa ({{Auth::user()->external_auth}}).</p>
                                         </div>
                                         <div class="row mt-5">
                                             <div class="col-md-6">

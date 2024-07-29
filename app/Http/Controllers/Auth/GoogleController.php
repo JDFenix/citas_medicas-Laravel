@@ -35,7 +35,7 @@ class GoogleController extends Controller
                 'email' => $socialUser->email,
                 'avatar' => $socialUser->avatar,
                 'external_id' => $socialUser->id,
-                'external_auth' => 'google',
+                'external_auth' => 'Google',
             ]);
 
             Auth::login($user);
