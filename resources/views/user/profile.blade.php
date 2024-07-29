@@ -172,9 +172,24 @@
                                         </div>
                                         <div class="row mt-5">
                                             <div class="col-md-6">
-                                                <label for="mobile_phone">Numero de telefono:</label>
-                                                <input type="text" class="form-control" name="mobile_phone"
-                                                    id="mobile_phone" placeholder="Numero de telefono">
+                                                <form action="{{ route('whatsapp.sendCode') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="id_user" id="id_user"
+                                                    value="{{ Auth::user()->id }}">
+
+                                                    <input type="hidden" name="name" id="name"
+                                                        value="{{ Auth::user()->name }}">
+
+                                                    <label for="mobile_phone">Numero de telefono:</label>
+                                                    <input type="text" class="form-control" name="mobile_phone"
+                                                        id="mobile_phone" placeholder="Numero de telefono">
+
+                                                    <div class="form-text col-12 d-flex justify-content-center">
+                                                        <button type="submit"
+                                                            class="btn btn-success mt-3">Verificar</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
 
                                             <div class="col-md-auto mt-3 p-1">

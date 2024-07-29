@@ -10,6 +10,7 @@ use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Auth\TwitterController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\WhatsAppController;
 
 Route::get('/', function () {
     return view('home');
@@ -50,33 +51,6 @@ Route::post('/clinic/update', [ClinicController::class, 'update'])->name('clinic
 Route::post('/clinic/get/{cipherid}', [ClinicController::class, 'edit'])->name('clinic.getClinic')->middleware("auth");
 Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->name('clinic.deleteClinic')->middleware("auth");
 
-///////////////// Services Oauth2
-//google
-Route::get('login-google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('google-callback', [GoogleCOntroller::class, 'callbackGoogle']);
-
-
-// X
-Route::get('auth/twitter', [TwitterController::class, 'redirectToTwitter']);
-Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCallback']);
-
-
-//change language
-
- 
-Route::get('/greeting/{locale}', function (string $locale) {
-    if (! in_array($locale, ['en', 'es'])) {
-        abort(400);
-    }
- 
-    session(['locale' => $locale]);
-    App::setLocale($locale);
- 
-
-    \Log::info('Locale set to: ' . $locale);
-    \Log::info('Current locale after setting: ' . App::getLocale());
-    return redirect()->back();
-});
 
 
 //user
@@ -90,3 +64,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/email/update', [UserController::class, 'updateEmail'])->name('user.updateEmail');
     Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 });
+
+
+
+
+
+///////////////// Services Oauth2
+//google
+Route::get('login-google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('google-callback', [GoogleCOntroller::class, 'callbackGoogle']);
+
+
+// X
+Route::get('auth/twitter', [TwitterController::class, 'redirectToTwitter']);
+Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCallback']);
+
+
+//whatsapp
+Route::post('/whatsapp/send', [WhatsAppController::class, 'sendCode'])->name('whatsapp.sendCode');
