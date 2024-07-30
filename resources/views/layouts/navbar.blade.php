@@ -20,6 +20,9 @@
                     <li class="nav-item text-expand">
                         <a class="nav-link" href="#">{{ __('auth.Contact') }}</a>
                     </li>
+                    @stack('navbar')
+
+                    
                     @if (Auth::user()->role == 'admin')
                         <li class="nav-item text-expand">
                             <a class="nav-link"
@@ -55,7 +58,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('user.showProfile') }}">
-                                <i class="bi bi-person-circle"></i> {{ __('user.Profile') }}
+                                <i class="bi bi-gear"></i> Ajustes
                             </a>
                         
                             <a class="dropdown-item" href="{{ route('logout') }}"

@@ -7,16 +7,17 @@ use App\Models\Appointment;
 use App\Models\Clinic;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::where('users_id', Auth::user()->id)->get();
         
         return view('home', compact('appointments'));
-
     }
+    
 
     public function create()
     {
