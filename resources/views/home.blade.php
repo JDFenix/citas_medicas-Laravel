@@ -1,45 +1,136 @@
 @extends('layouts.app')
 
+@section('title')
+    Listado de Citas {{ Auth::user()->name }}
+@endsection
+
+@push('styles')
+    <link href="{{ asset('css/shadowCustom.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center my-5">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary text-white text-center">
-                    <h3>{{ __('dashboard.Dashboard') }}</h3>
-                </div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="container mt-5">
+        @auth
+            <h4 class="text-center mb-4">Bienvenido {{ Auth::user()->name }}</h4>
+        @endauth
 
-                    <div class="row text-center mb-4">
-                        <div class="col-md-4">
-                            <img src="{{ asset('img/medico-color.png') }}" class="img-fluid mb-2" alt="Doctor Image">
-                            <h5>Our Doctors</h5>
-                            <p>Meet our experienced and dedicated medical team.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="{{ asset('img/service doctor.jpg') }}" width="150" height="150" class="img-fluid mb-2 rounded-circle" alt="Services Image">
-                            <h5>Our Services</h5>
-                            <p>Explore the range of services we offer to our patients.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="{{ asset('img/contact doctor.jpg') }}" width="130" height="130" class="img-fluid mb-2 rounded-circle"  alt="Contact Image">
-                            <h5>Contact Us</h5>
-                            <p>Get in touch with us for appointments and inquiries.</p>
+        @if (Auth::user()->role != 'admin')
+
+            @push('navbar')
+                <li class="nav-item text-expand">
+                    <a href="{{ route('appointment.formRegister') }}" class="nav-link">Agendar Cita Nueva</a>
+                </li>
+            @endpush
+            @if ($appointments->isEmpty())
+                @if (Auth::user()->maternal_surname != null &&
+                        Auth::user()->paternal_surname != null &&
+                        Auth::user()->mobile_phone != null &&
+                        Auth::user()->status_code == 'enabled')
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="alert alert-info text-center" role="alert">
+                                No hay citas para usted. desea agendar una cita? <a
+                                    href="{{ route('appointment.formRegister') }}" class="alert-link">Click aquí</a>
+                            </div>
                         </div>
                     </div>
+                @endif
 
-                    <div class="d-grid gap-2 d-md-block text-center">
-                        {{-- <a href="{{ route('appointment.main') }}" class="btn btn-primary btn-lg me-md-2 mb-2 button-expand">Book an Appointment</a>
-                        <a href="{{ route('clinic.showIndex') }}" class="btn btn-outline-primary btn-lg mb-2 button-expand">View Clinics</a> --}}
+                @if (Auth::user()->maternal_surname == null &&
+                        Auth::user()->paternal_surname == null &&
+                        Auth::user()->mobile_phone == null)
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="alert alert-info text-center" role="alert">
+                                No puedes agendar citas debido a que ha iniciado sesión por
+                                {{ Auth::user()->external_auth }} y sus datos personales están incompletos, completalos! <a
+                                    href="{{ route('user.showProfile') }}" class="alert-link">Click aquí</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if (Auth::user()->status_code == 'disabled' &&
+                        Auth::user()->maternal_surname != null &&
+                        Auth::user()->paternal_surname != null &&
+                        Auth::user()->mobile_phone == null)
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="alert alert-info text-center" role="alert">
+                                No puedes agendar citas debido a que tu número de teléfono está incompleto,
+                                complétalo!
+                                <a href="{{ route('user.showProfile') }}" class="alert-link">Click aquí</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+                @if (Auth::user()->status_code == 'disabled' &&
+                        Auth::user()->maternal_surname != null &&
+                        Auth::user()->paternal_surname != null &&
+                        Auth::user()->mobile_phone != null)
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="alert alert-info text-center" role="alert">
+                                No puedes agendar citas debido a que tu número de teléfono no esta validado,
+                                Veríficalo!
+                                <a href="{{ route('user.showProfile') }}" class="alert-link">Click aquí</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @else
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h3 class="me-3">Listado de citas activas para {{ Auth::user()->name }}</h3>
+                        <a href="{{ route('appointment.formRegister') }}"
+                            class="btn btn-primary">{{ __('Create New Appointment') }}</a>
+                    </div>
+
+                    <div class="col-md-12">
+                        <hr class="border border-secondary border-2 opacity-10 custom-hr">
                     </div>
                 </div>
-            </div>
-        </div>
+
+                <div class="row justify-content-center">
+                    @foreach ($appointments as $appointment)
+                        <div class="col-md-3 me-5 mt-5">
+                            <div class="card custom-shadow-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end">
+                                            <h5>{{ $appointment->date }}</h5>
+                                        </div>
+                                        <hr class="border border-secondary border-2 opacity-10 custom-hr">
+                                        <div class="d-flex justify-content-center">
+                                            <h4>Cita para {{ $appointment->clinics->speciality }}</h4>
+                                        </div>
+                                        <div class="d-flex justify-content-start mt-3">
+                                            <p>Consultorio: {{ $appointment->clinics->speciality }}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-start">
+                                            <p>Doctor: {{ $appointment->doctors->name }}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-start">
+                                            <p>Hora: {{ $appointment->hour }}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-start">
+                                            <p>Paciente: {{ $appointment->users->name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="btn-group col-md-6">
+                                            <button type="button"
+                                                class="btn btn-primary btn-lg btn-custom btn-sm custom-shadow-button">Reagendar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        @endif
     </div>
-</div>
 @endsection

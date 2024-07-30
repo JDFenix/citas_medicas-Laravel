@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
             'paternal_surname' => 'Alegria',
             'email' => 'admin@example.com',
             'password' => bcrypt('123456789'),
-            'external_auth' => 'Normal'
+            'external_auth' => 'Normal',
+            'mobile_phone' => '1234567890',
+            'status_code' => 'enabled'
         ]);
 
 
@@ -38,7 +40,9 @@ class DatabaseSeeder extends Seeder
             'paternal_surname' => 'Barrios',
             'email' => 'test@example.com',
             'password' => bcrypt('123456789'),
-            'external_auth' => 'Normal'
+            'external_auth' => 'Normal',
+            'mobile_phone' => '1234567890',
+            'status_code' => 'enabled'
         ]);
 
         $clinic = Clinic::create([
