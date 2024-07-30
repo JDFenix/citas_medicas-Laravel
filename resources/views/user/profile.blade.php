@@ -251,39 +251,39 @@
                     <div class="row justify-content-center">
                         <div class="col-md-5 mb-2">
                             <h5 class="fs-5">Selecciona un avatar</h5>
-                            <form id="avatar-form" action="" method="post">
-                                <div id="carouselPixelArt" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @foreach ($pixelArtUrls as $index => $avatar)
-                                            <form action="" method="post" id="form-{{ $index }}">
-                                                @csrf
-                                                <input type="hidden" name="avatar" value="{{ $avatar }}">
 
-                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                    <img src="{{ $avatar }}"
-                                                        id="avatar-image-option-{{ $index }}"
-                                                        class="d-block w-85 h-85 rounded-circle avatar-image"
-                                                        alt="Pixel Art Avatar {{ $index + 1 }}">
+                            <div id="carouselPixelArt" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($pixelArtUrls as $index => $avatar)
+                                        <form action="{{ route('user.updateAvatar') }}" method="post"
+                                            id="form-{{ $index }}">
+                                            @csrf
+                                            <input type="hidden" name="avatar" value="{{ $avatar }}">
 
-                                                    <button type="submit" hidden="true"
-                                                        id="button-form-{{ $index }}"></button>
-                                                </div>
-                                            </form>
-                                        @endforeach
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                <img src="{{ $avatar }}"
+                                                    id="avatar-image-option-{{ $index }}"
+                                                    class="d-block w-85 h-85 rounded-circle avatar-image"
+                                                    alt="Pixel Art Avatar {{ $index + 1 }}">
 
-                                    </div>
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselPixelArt" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselPixelArt" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
+                                                <button type="submit" hidden="true"
+                                                    id="button-form-{{ $index }}"></button>
+                                            </div>
+                                        </form>
+                                    @endforeach
+
                                 </div>
-                            </form>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPixelArt"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselPixelArt"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -291,12 +291,23 @@
                             <div id="carouselAvataaars" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     @foreach ($avataaarsUrls as $index => $avatar)
-                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ $avatar }}"
-                                                class="d-block w-85 rounded-circle avatar-image rounded"
-                                                alt="avataaars Avatar {{ $index + 1 }}">
-                                        </div>
+                                        <form action="{{ route('user.updateAvatar') }}" method="post"
+                                            id="form-avataaars-{{ $index }}">
+                                            @csrf
+                                            <input type="hidden" name="avatar" value="{{ $avatar }}">
+
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                <img src="{{ $avatar }}"
+                                                    id="avatar-image-option-{{ $index }}"
+                                                    class="d-block w-85 h-85 rounded-circle avatar-image avatar-image-avataaars"
+                                                    alt="Pixel Art Avatar {{ $index + 1 }}">
+
+                                                <button type="submit" hidden="true"
+                                                    id="button-form-{{ $index }}"></button>
+                                            </div>
+                                        </form>
                                     @endforeach
+
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselAvataaars"
                                     data-bs-slide="prev">
@@ -316,11 +327,21 @@
                             <div id="carouselAdventurer" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     @foreach ($adventurerUrls as $index => $avatar)
-                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ $avatar }}"
-                                                class="d-block w-85 rounded-circle avatar-image rounded"
-                                                alt="Pixel Art Avatar {{ $index + 1 }}">
-                                        </div>
+                                        <form action="{{ route('user.updateAvatar') }}" method="post"
+                                            id="form-adventurer-{{ $index }}">
+                                            @csrf
+                                            <input type="hidden" name="avatar" value="{{ $avatar }}">
+
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                <img src="{{ $avatar }}"
+                                                    id="avatar-image-option-{{ $index }}"
+                                                    class="d-block w-85 h-85 rounded-circle avatar-image avatar-image-adventurer"
+                                                    alt="Pixel Art Avatar {{ $index + 1 }}">
+
+                                                <button type="submit" hidden="true"
+                                                    id="button-form-{{ $index }}"></button>
+                                            </div>
+                                        </form>
                                     @endforeach
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselAdventurer"
@@ -348,6 +369,25 @@
             document.querySelectorAll('.avatar-image').forEach((img, index) => {
                 img.addEventListener('click', () => {
                     document.getElementById(`form-${index}`).submit();
+                });
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.avatar-image-avataaars').forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    document.getElementById(`form-avataaars-${index}`).submit();
+                });
+            });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.avatar-image-adventurer').forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    document.getElementById(`form-adventurer-${index}`).submit();
                 });
             });
         });

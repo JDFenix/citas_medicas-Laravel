@@ -97,4 +97,18 @@ class UserController extends Controller
         return $avatarUrls;
     }
 
+    public function updateAvatar(Request $request)
+    {
+
+        $request->validate([
+            'avatar' => 'required|url',
+        ]);
+
+        $user = Auth::user();
+        $user->avatar = $request->avatar;
+        $user->save();
+
+        return redirect()->back()->with('status', 'Avatar actualizado correctamente');
+    }
+
 }

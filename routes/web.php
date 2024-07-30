@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 });
 
+Route::post('/user/avatar/update', [UserController::class, 'updateAvatar'])->name('user.updateAvatar')->middleware('auth');
 
 
 
