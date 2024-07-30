@@ -144,6 +144,24 @@
                                 </div>
                             </div>
 
+                            
+                                                        <!-- Mensajes de Error -->
+                                                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Mensajes de Éxito -->
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                             <div id="password-auth" class="content-section" style="display:none;">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <h3 class="card-title">Contraseña y Autenticación</h3>

@@ -63,24 +63,27 @@ class UserController extends Controller
         return redirect()->back()->with('status', 'Email actualizado correctamente');
     }
 
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
 
-        $user = Auth::user();
+//Función de  la contraseña "modificar contraseñas y modificarlas"
+public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => 'required|string',
+        'new_password' => 'required|string|min:8|confirmed',
+    ]);
 
-        if (!Hash::check($request->current_password, $user->password)) {
-            return redirect()->back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.']);
-        }
+    $user = Auth::user();
 
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-
-        return redirect()->back()->with('status', 'Contraseña actualizada correctamente');
+    if (!Hash::check($request->current_password, $user->password)) {
+        return redirect()->back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.']);
     }
+
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return redirect()->back()->with('status', 'Contraseña actualizada correctamente');
+}
+
 
     public function getAvatarsProfile()
     {
