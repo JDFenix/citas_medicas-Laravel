@@ -3,6 +3,16 @@
 @section('title', 'Ajustes')
 
 @section('content')
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        </div>
+    @endif
+
     <div class="container d-flex justify-content-center mt-5">
         <div class="row no-gutters w-100">
             <div class="col-md-4 d-flex flex-column align-items-center p-3 position-relative">
@@ -176,19 +186,26 @@
                                             <div class="col-md-6">
                                                 <form action="{{ route('whatsapp.sendCode') }}" method="post">
                                                     @csrf
-                                                    <input type="hidden" name="id_user" id="id_user" value="{{ Auth::user()->id }}">
-                                                    <input type="hidden" name="name" id="name" value="{{ Auth::user()->name }}">
-                                    
+                                                    <input type="hidden" name="id_user" id="id_user"
+                                                        value="{{ Auth::user()->id }}">
+                                                    <input type="hidden" name="name" id="name"
+                                                        value="{{ Auth::user()->name }}">
+
                                                     <label for="mobile_phone">Numero de telefono:</label>
-                                                    <input type="text" class="form-control" name="mobile_phone" id="mobile_phone" value="{{ Auth::user()->mobile_phone }}" placeholder="Numero de telefono">
-                                    
+                                                    <input type="text" class="form-control" name="mobile_phone"
+                                                        id="mobile_phone" value="{{ Auth::user()->mobile_phone }}"
+                                                        placeholder="Numero de telefono">
+
                                                     <div class="form-text col-12 d-flex justify-content-center">
                                                         @if (Auth::user()->status_code == 'enabled' && Auth::user()->mobile_phone != null)
-                                                            <button type="submit" class="btn btn-success mt-3">Modificar</button>
+                                                            <button type="submit"
+                                                                class="btn btn-success mt-3">Modificar</button>
                                                         @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone != null)
-                                                            <button type="submit" class="btn btn-success mt-3">Verificar</button>
+                                                            <button type="submit"
+                                                                class="btn btn-success mt-3">Verificar</button>
                                                         @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone == null)
-                                                            <button type="submit" class="btn btn-success mt-3">Mandar Verificación <i class="bi bi-whatsapp me-2"></i></button>
+                                                            <button type="submit" class="btn btn-success mt-3">Mandar
+                                                                Verificación <i class="bi bi-whatsapp me-2"></i></button>
                                                         @endif
                                                     </div>
                                                 </form>
