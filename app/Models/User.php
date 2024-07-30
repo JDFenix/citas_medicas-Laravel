@@ -24,6 +24,7 @@ class User extends Authenticatable
         'maternal_surname',
         'mobile_phone',
         'code_verification',
+        'status_code',
         'username',
         'email',
         'password',

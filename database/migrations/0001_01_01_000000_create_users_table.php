@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('paternal_surname')->nullable();
             $table->string('mobile_phone')->nullable();
             $table->string('code_verification')->nullable();
+            $table->string('status_code')->nullable()->default("disabled");
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

@@ -63,9 +63,7 @@
                             <a class="dropdown-item" href="{{ route('user.showProfile') }}">
                                 <i class="bi bi-person-circle"></i> {{ __('user.Profile') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('user.showSetting') }}">
-                                <i class="bi bi-gear"></i> {{ __('user.Settings') }}
-                            </a>
+                        
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i> {{ __('auth.Logout') }}

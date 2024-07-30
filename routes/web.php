@@ -56,8 +56,6 @@ Route::delete('/clinic/get/{cipherid}', [ClinicController::class, 'delete'])->na
 //user
 Route::get('/user/profile', [UserController::class,"showProfile"])->name('user.showProfile')->middleware("auth")->middleware("auth");
 
-Route::get('user/settings', [UserController::class,"showSettings"])->name('user.showSetting')->middleware("auth")->middleware("auth");
-
 Route::post('/user/profile/update', [UserController::class, 'updateProfile'])->name('user.updateProfile')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
@@ -82,3 +80,5 @@ Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCal
 
 //whatsapp
 Route::post('/whatsapp/send', [WhatsAppController::class, 'sendCode'])->name('whatsapp.sendCode');
+Route::post('whatsapp/verify',[WhatsAppController::class, 'verifyCode'])->name('whatsapp.verifyCode');
+Route::get('whatsapp/verify/{user_id}',[WhatsAppController::class, 'verifyCodeView'])->name('whatsapp.verifyCodeView');
