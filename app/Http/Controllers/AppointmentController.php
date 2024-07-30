@@ -14,7 +14,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::all();
         
-        return view('appointment.main', compact('appointments'));
+        return view('home', compact('appointments'));
 
     }
 

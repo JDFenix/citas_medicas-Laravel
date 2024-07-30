@@ -12,9 +12,6 @@ use App\Http\Controllers\Auth\TwitterController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\WhatsAppController;
 
-Route::get('/', function () {
-    return view('home');
-});
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -23,7 +20,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //appointments
 Route::get("/appointment/register", [AppointmentController::class, 'create'])->name("appointment.formRegister")->middleware("auth");
 Route::post("/appointment/registerP", [AppointmentController::class, 'store'])->name("appointment.post")->middleware("auth");
-Route::get("/appointment/main", [AppointmentController::class, 'index'])->name("appointment.main")->middleware("auth");
+Route::get('/', [AppointmentController::class, 'index'])->name('appointment.main')->middleware('auth');
 Route::get("/appointment/{id}", [AppointmentController::class, 'show'])->name("appointment.show")->middleware("auth");
 Route::get("/appointment/{id}/edit", [AppointmentController::class, 'edit'])->name("appointment.edit")->middleware("auth");
 Route::put("/appointment/{id}", [AppointmentController::class, 'update'])->name("appointment.update")->middleware("auth");

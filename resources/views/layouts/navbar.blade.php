@@ -20,12 +20,6 @@
                     <li class="nav-item text-expand">
                         <a class="nav-link" href="#">{{ __('auth.Contact') }}</a>
                     </li>
-                    @if (Auth::user()->role == 'pacient')
-                        <li class="nav-item text-expand">
-                            <a class="nav-link"
-                                href="{{ route('appointment.main') }}">{{ __('appointment.appointments') }}</a>
-                        </li>
-                    @endif
                     @if (Auth::user()->role == 'admin')
                         <li class="nav-item text-expand">
                             <a class="nav-link"

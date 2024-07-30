@@ -12,6 +12,9 @@
 @section('content')
     <div class="container mt-5">
 
+        @auth
+            <h4 class="text-center mb-4">Benvenido {{ Auth::user()->name }}</h4>
+        @endauth
 
         <div class="row justify-content-between align-items-center">
 
@@ -30,7 +33,6 @@
         <div class="row justify-content-center">
 
             @foreach ($appointments as $appointment)
-
                 <div class="col-md-3 me-5 mt-5">
                     <div class="card custom-shadow-card">
                         <div class="card-body">
