@@ -8,7 +8,10 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button id="theme-toggle" class="btn btn-outline-secondary ms-2">
+            <span id="theme-icon" class="bi bi-sun"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
             @if (Auth::check())
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item text-expand">
@@ -75,3 +78,66 @@
         </div>
     </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    // Aplicar el tema almacenado en localStorage
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.classList.toggle('dark-mode', currentTheme === 'dark');
+    themeIcon.classList.toggle('bi-moon', currentTheme === 'dark');
+    themeIcon.classList.toggle('bi-sun', currentTheme === 'light');
+
+    themeToggleButton.addEventListener('click', function() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+        themeIcon.classList.toggle('bi-sun', !isDarkMode);
+        themeIcon.classList.toggle('bi-moon', isDarkMode);
+
+        // Almacenar la preferencia en localStorage
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+</script>
+
+<style>
+/* Añadir estilos para el tema oscuro */
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .navbar {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .navbar-nav .nav-link {
+    color: #e0e0e0; /* Color del texto de los enlaces en modo oscuro */
+}
+
+.dark-mode .navbar-nav .nav-link:hover {
+    color: #f0f0f0; /* Color del texto de los enlaces al pasar el ratón en modo oscuro */
+}
+
+.dark-mode .dropdown-menu {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .dropdown-item {
+    color: #e0e0e0;
+}
+
+.dark-mode .btn-outline-secondary {
+    color: #e0e0e0;
+    border-color: #333;
+    background-color: #333;
+}
+.dark-mode .dropdown-item:hover {
+    background-color: #333;
+}
+
+
+</style>

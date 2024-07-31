@@ -1,0 +1,30 @@
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .navbar {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .navbar-nav .nav-link {
+    color: #e0e0e0; /* Color del texto de los enlaces en modo oscuro */
+}
+
+.dark-mode .navbar-nav .nav-link:hover {
+    color: #f0f0f0; /* Color del texto de los enlaces al pasar el ratón en modo oscuro */
+}
+
+.dark-mode .dropdown-menu {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .dropdown-item {
+    color: #e0e0e0;
+}
+
+.dark-mode .dropdown-item:hover {
+    background-color: #333;
+}
