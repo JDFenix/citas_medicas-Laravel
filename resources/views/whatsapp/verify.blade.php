@@ -12,6 +12,7 @@
             height: 4px;
             background-color: #e9ecef;
         }
+
         .progress-bar {
             width: 100%;
             height: 100%;
@@ -21,6 +22,20 @@
 @endpush
 
 @section('content')
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="container d-flex justify-content-center min-vh-100 mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-8">
@@ -38,13 +53,18 @@
                             <input type="hidden" name="code" id="verificationCode">
                             <div class="mb-4">
                                 <label for="verificationCode" class="form-label">
-                                    Ingrese el código de verificación enviado por Whatsapp al número +52 **** **{{ substr($user->mobile_phone, -2) }}
+                                    Ingrese el código de verificación enviado por Whatsapp al número +52 ****
+                                    **{{ substr($user->mobile_phone, -2) }}
                                 </label>
                                 <div class="d-flex justify-content-center">
-                                    <input type="text" class="form-control text-center mx-2 verification-code" id="code1" maxlength="1" required>
-                                    <input type="text" class="form-control text-center mx-2 verification-code" id="code2" maxlength="1" required>
-                                    <input type="text" class="form-control text-center mx-2 verification-code" id="code3" maxlength="1" required>
-                                    <input type="text" class="form-control text-center mx-2 verification-code" id="code4" maxlength="1" required>
+                                    <input type="text" class="form-control text-center mx-2 verification-code"
+                                        id="code1" maxlength="1" required>
+                                    <input type="text" class="form-control text-center mx-2 verification-code"
+                                        id="code2" maxlength="1" required>
+                                    <input type="text" class="form-control text-center mx-2 verification-code"
+                                        id="code3" maxlength="1" required>
+                                    <input type="text" class="form-control text-center mx-2 verification-code"
+                                        id="code4" maxlength="1" required>
                                 </div>
                             </div>
                             <div class="d-grid gap-2">

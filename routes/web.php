@@ -28,6 +28,15 @@ Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCal
 
 
 
+//whatsapp
+Route::post('/whatsapp/send', [WhatsAppController::class, 'sendCode'])->name('whatsapp.sendCode');
+Route::post('whatsapp/verify',[WhatsAppController::class, 'verifyCode'])->name('whatsapp.verifyCode');
+Route::get('whatsapp/verify/{user_id}',[WhatsAppController::class, 'verifyCodeView'])->name('whatsapp.verifyCodeView');
+Route::post('whatsapp/getPassword',[WhatsAppController::class, 'getTemporalyPassword'])->name('whatsapp.getTemporalyPassword');
+
+
+
+
 //appointments
 Route::get("/appointment/register", [AppointmentController::class, 'create'])->name("appointment.formRegister")->middleware("auth");
 Route::post("/appointment/registerP", [AppointmentController::class, 'store'])->name("appointment.post")->middleware("auth");
@@ -74,8 +83,3 @@ Route::middleware('auth')->group(function () {
 Route::post('/user/avatar/update', [UserController::class, 'updateAvatar'])->name('user.updateAvatar')->middleware('auth');
 
 
-
-//whatsapp
-Route::post('/whatsapp/send', [WhatsAppController::class, 'sendCode'])->name('whatsapp.sendCode');
-Route::post('whatsapp/verify',[WhatsAppController::class, 'verifyCode'])->name('whatsapp.verifyCode');
-Route::get('whatsapp/verify/{user_id}',[WhatsAppController::class, 'verifyCodeView'])->name('whatsapp.verifyCodeView');

@@ -90,6 +90,75 @@ class WhatsAppController extends Controller
     }
 
 
+
+    public function getTemporalyPassword(Request $request)
+    {
+        $user = User::all()->where('email', $request['email'])->first();
+
+        if ($user != null && $user->mobile_phone == $request['mobile_phone']) {
+          
+                $mobile_phone = $user['mobile_phone'];
+                $passwordTemporal = rand(1000000, 9999999);
+                $user->password = bcrypt($passwordTemporal);
+                $user->save();
+
+                try {
+                    $data = array(
+                        "messaging_product" => "whatsapp",
+                        "to" => "+52" . $mobile_phone,
+                        "type" => "template",
+                        "template" => array(
+                            "name" => "contrasena_emporal",
+                            "language" => array(
+                                "code" => "es"
+                            ),
+                            "components" => array(
+                                array(
+                                    "type" => "body",
+                                    "parameters" => array(
+                                        array(
+                                            "type" => "text",
+                                            "text" => $passwordTemporal
+                                        ),
+                                    )
+                                )
+                            )
+                        )
+                    );
+
+                    $data_string = json_encode($data);
+                    $curl = curl_init($this->url);
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt(
+                        $curl,
+                        CURLOPT_HTTPHEADER,
+                        array(
+                            'Authorization: Bearer ' . $this->token,
+                            'Content-Type: application/json',
+                            'Content-Length: ' . strlen($data_string)
+                        )
+                    );
+                    curl_exec($curl);
+                    curl_close($curl);
+                } catch (Exception $e) {
+                    return redirect()->back()->with('error', 'Error al enviar el mensaje');
+                }
+
+            return redirect()->back()->with('success', 'Contraseña temporal enviada correctamente');
+        } else {
+            return redirect()->back()->with('error', 'Usuario no encontrado verifica los datos ingresados');
+        }
+    }
+
+
+
+    public function sendPasswordTemporal($mobile_phone, $passwordTemporal)
+    {
+    }
+
+
     public function verifyCode(Request $request)
     {
         $user_id = $request['id_user'];
