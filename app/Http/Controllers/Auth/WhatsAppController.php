@@ -11,7 +11,7 @@ class WhatsAppController extends Controller
 {
 
     private $url = 'https://graph.facebook.com/v20.0/403156569538511/messages';
-    private $token = 'EAA4l1ZCjwvCYBO7cxvBMrcwxBiboZBUZAdmhFfEZAtOORklr7IjGsQ0IZBZCFhN9lhyAylMiRmXJkcJYMU84is3kZBCD8jzV5r30I8bpXS8T3xipVYmpEqM6Gxvw2Qee0KSbWbe66ao0baYt23VTd9OtsmYYwEck5ugEemScZCb7n33a3AVRny8wt0sQK17xRmSiCMuGeY6fZCavZB91q0xaURS8zCdIaI8SdkML4ZD';
+    private $token = 'EAA4l1ZCjwvCYBOZCDQGrZCmovuw932YoXDTluZActC2IVjcaKgN2mj5ineCajhC84P1nygz4ATsnagjZAHFHD9gNN089oDuHyZASgwIEwNQEARGm6TGoMuKqF91khhZBQjHwkSIztLgZAQlKkomb0HQkJTUbEWQGlcRwPP8lTfVhoyTJUVnATSR8BDtj9FMu6GotUYhRWeq7AiNojKnZB06zPOoye3ZAC3lYh5cdEZD';
 
     public function sendCode(Request $request)
     {

@@ -13,10 +13,15 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::where('users_id', Auth::user()->id)->get();
+        $today = now()->format('Y-m-d');
+        
+        $appointments = Appointment::where('users_id', Auth::user()->id)
+            ->whereDate('date', '>=', $today) 
+            ->get();
         
         return view('home', compact('appointments'));
     }
+    
     
 
     public function create()
@@ -33,19 +38,47 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
+    
         $request->validate([
-            'date' => 'required|date',
-            'hour' => 'required',
+            'date' => 'required|date|after_or_equal:today',
+            'hour' => 'required|date_format:H:i|after:07:59|before:18:00',
             'users_id' => 'required|exists:users,id',
             'clinics_id' => 'required|exists:clinics,id',
             'doctors_id' => 'required|exists:doctors,id',
         ]);
     
-        // Crear la cita
+        $appointmentDateTime = new \DateTime($request->date . ' ' . $request->hour);
+    
+        $existingAppointments = Appointment::where('date', $request->date)
+            ->where('hour', $request->hour)
+            ->where('clinics_id', $request->clinics_id)
+            ->exists();
+    
+        if ($existingAppointments) {
+            return redirect()->back()->with('error', 'Ya existe una cita agendada para esa especialidad en la misma fecha y hora.');
+        }
+    
+        $appointments = Appointment::where('date', $request->date)
+            ->where('doctors_id', $request->doctors_id)
+            ->get();
+    
+        foreach ($appointments as $appointment) {
+            $appointmentTime = new \DateTime($appointment->date . ' ' . $appointment->hour);
+            $interval = $appointmentTime->diff($appointmentDateTime);
+    
+            if ($interval->h == 0 && $interval->i < 25) {
+                $recommendedTime = (clone $appointmentDateTime)->modify('+25 minutes');
+    
+                return redirect()->back()->with('error', 'No se puede agendar la cita. Intente con la siguiente hora disponible: ' . $recommendedTime->format('H:i') . ' en la misma fecha.');
+            }
+        }
+        
         Appointment::create($request->all());
     
-        return redirect()->route('appointment.main')->with('success', 'Appointment created successfully.');
+        return redirect()->route('appointment.main')->with('success', 'Cita creada correctamente');
     }
+    
+    
     
 
     public function show($id)

@@ -9,9 +9,9 @@
 @endpush
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-1">
         @auth
-            <h4 class="text-center mb-4">Bienvenido {{ Auth::user()->name }}</h4>
+            <h1 class="text-center mb-4">Bienvenido {{ Auth::user()->name }}</h1>
         @endauth
 
         @if (Auth::user()->role != 'admin')
@@ -85,7 +85,7 @@
                     <div class="col-md-8 d-flex align-items-center">
                         <h3 class="me-3">Listado de citas activas para {{ Auth::user()->name }}</h3>
                         <a href="{{ route('appointment.formRegister') }}"
-                            class="btn btn-primary">{{ __('Create New Appointment') }}</a>
+                            class="btn btn-primary">Agendar Cita Nueva</a>
                     </div>
 
                     <div class="col-md-12">
@@ -120,9 +120,10 @@
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <div class="btn-group col-md-6">
-                                            <button type="button"
-                                                class="btn btn-primary btn-lg btn-custom btn-sm custom-shadow-button">Reagendar</button>
+                                        <div class="btn-group ">
+                                            <p>Por favor, le solicitamos encarecidamente que se presente puntualmente a la
+                                                hora y fecha acordadas. Lamentamos informar que no se permitirán
+                                                cancelaciones ni reprogramaciones.</p>
                                         </div>
                                     </div>
                                 </div>
