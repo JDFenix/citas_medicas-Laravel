@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("role")->nullable()->default("pacient");
             $table->string('avatar')->nullable();
+            $table->date('date_birth')->nullable();
             $table->string('name');
             $table->string('maternal_surname')->nullable();
             $table->string('paternal_surname')->nullable();

@@ -72,6 +72,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'external_auth' => "Normal",
+            'role' => "pacient",
+            'status_code' => "disabled",
+            'mobile_phone' => $data['mobile_phone'],
+            'date_birth' => $data['date_birth'],
+            
         ]);
     }
 }

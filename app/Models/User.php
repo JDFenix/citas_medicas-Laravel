@@ -20,6 +20,7 @@ class User extends Authenticatable
         'role',
         'avatar',
         'name',
+        'date_birth',
         'paternal_surname',
         'maternal_surname',
         'mobile_phone',
