@@ -16,6 +16,17 @@ use App\Http\Controllers\Auth\WhatsAppController;
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+///////////////// Services Oauth2
+//google
+Route::get('login-google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('google-callback', [GoogleCOntroller::class, 'callbackGoogle']);
+
+
+// X
+Route::get('auth/twitter', [TwitterController::class, 'redirectToTwitter']);
+Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCallback']);
+
+
 
 //appointments
 Route::get("/appointment/register", [AppointmentController::class, 'create'])->name("appointment.formRegister")->middleware("auth");
@@ -62,18 +73,6 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/user/avatar/update', [UserController::class, 'updateAvatar'])->name('user.updateAvatar')->middleware('auth');
 
-
-
-
-///////////////// Services Oauth2
-//google
-Route::get('login-google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('google-callback', [GoogleCOntroller::class, 'callbackGoogle']);
-
-
-// X
-Route::get('auth/twitter', [TwitterController::class, 'redirectToTwitter']);
-Route::get('auth/twitter/callback', [TwitterController::class, 'handleTwitterCallback']);
 
 
 //whatsapp
