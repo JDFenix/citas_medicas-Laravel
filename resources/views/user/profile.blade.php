@@ -126,8 +126,8 @@
                                     <h3 class="card-title">Email</h3>
                                     <hr>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row  d-flex justify-content-center mt-2">
+                                    <div class="col-md-6 ">
                                         <div class="form-group">
                                             <form action="{{ route('user.updateEmail') }}" method="POST">
                                                 @csrf
@@ -136,7 +136,7 @@
                                                     class="form-control" id="email" placeholder="Correo electrónico">
                                                 <div class="form-text col-12 d-flex justify-content-center">
                                                     <button type="submit"
-                                                        class="btn btn-success mt-3">Actualizar</button>
+                                                        class="btn btn-success mt-4">Actualizar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -144,30 +144,30 @@
                                 </div>
                             </div>
 
-                            
-                                                        <!-- Mensajes de Error -->
-                                                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
 
-                    <!-- Mensajes de Éxito -->
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                            <!-- Mensajes de Error -->
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <!-- Mensajes de Éxito -->
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <div id="password-auth" class="content-section" style="display:none;">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <h3 class="card-title">Contraseña y Autenticación</h3>
                                     <hr>
                                 </div>
-                                @if (!$isExternalAuth && $isPasswordSet)
+                                @if (Auth::user()->external_auth == 'Normal')
                                     <div class="row">
                                         <div class="col-md-6">
                                             <form action="{{ route('user.updatePassword') }}" method="post">
@@ -200,61 +200,56 @@
                                                 registró con una
                                                 cuenta externa ({{ Auth::user()->external_auth }}).</p>
                                         </div>
-                                        <div class="row mt-5">
-                                            <div class="col-md-6">
-                                                <form action="{{ route('whatsapp.sendCode') }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="id_user" id="id_user"
-                                                        value="{{ Auth::user()->id }}">
-                                                    <input type="hidden" name="name" id="name"
-                                                        value="{{ Auth::user()->name }}">
-
-                                                    <label for="mobile_phone">Numero de telefono:</label>
-                                                    <input type="text" class="form-control" name="mobile_phone"
-                                                        id="mobile_phone" value="{{ Auth::user()->mobile_phone }}"
-                                                        placeholder="Numero de telefono">
-
-                                                    <div class="form-text col-12 d-flex justify-content-center">
-                                                        @if (Auth::user()->status_code == 'enabled' && Auth::user()->mobile_phone != null)
-                                                            <button type="submit"
-                                                                class="btn btn-success mt-3">Modificar</button>
-                                                        @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone != null)
-                                                            <button type="submit"
-                                                                class="btn btn-success mt-3">Verificar</button>
-                                                        @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone == null)
-                                                            <button type="submit" class="btn btn-success mt-3">Mandar
-                                                                Verificación <i class="bi bi-whatsapp me-2"></i></button>
-                                                        @endif
-                                                    </div>
-                                                </form>
-
-                                            </div>
-
-                                            @if (Auth::user()->status_code == 'enabled')
-                                                <div class="col-md-auto mt-3 p-1">
-                                                    <div class="p-2 bg-success text-white rounded">
-                                                        Numero de telefono verificado
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="col-md-auto mt-3 p-1">
-                                                    <div class="p-2 bg-danger text-white rounded">
-                                                        Numero de telefono no verificado
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        </div>
-
                                     </div>
                                 @endif
+                                <div class="row mt-5">
+                                    <div class="col-md-6">
+                                        <form action="{{ route('whatsapp.sendCode') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id_user" id="id_user"
+                                                value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="name" id="name"
+                                                value="{{ Auth::user()->name }}">
 
+                                            <label for="mobile_phone">Numero de telefono:</label>
+                                            <input type="text" class="form-control" name="mobile_phone"
+                                                id="mobile_phone" value="{{ Auth::user()->mobile_phone }}"
+                                                placeholder="Numero de telefono">
+
+                                            <div class="form-text col-12 d-flex justify-content-center">
+                                                @if (Auth::user()->status_code == 'enabled' && Auth::user()->mobile_phone != null)
+                                                    <button type="submit" class="btn btn-success mt-3">Modificar</button>
+                                                @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone != null)
+                                                    <button type="submit" class="btn btn-success mt-3">Verificar</button>
+                                                @elseif (Auth::user()->status_code == 'disabled' && Auth::user()->mobile_phone == null)
+                                                    <button type="submit" class="btn btn-success mt-3">Mandar
+                                                        Verificación <i class="bi bi-whatsapp me-2"></i></button>
+                                                @endif
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    @if (Auth::user()->status_code == 'enabled')
+                                        <div class="col-md-auto mt-3 p-1">
+                                            <div class="p-2 bg-success text-white rounded">
+                                                Numero de telefono verificado
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-md-auto mt-3 p-1">
+                                            <div class="p-2 bg-danger text-white rounded">
+                                                Numero de telefono no verificado
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
