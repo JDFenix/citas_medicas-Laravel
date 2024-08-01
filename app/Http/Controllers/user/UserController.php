@@ -42,11 +42,10 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'paternal_surname' => $request->input('paternal_surname'),
             'maternal_surname' => $request->input('maternal_surname'),
-            'birth_date' => $request->input('birth_date'),
-            'avatar' => $request->input('avatar'),
+            'date_birth' => $request->input('date_birth'),
         ]);
     
-        return redirect()->back()->with('status', 'Profile updated successfully!');
+        return redirect()->back()->with('status', 'Perfil actualizado correctamente');
     }
     
 

@@ -72,7 +72,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="birth-date">Fecha de nacimiento</label>
-                                                        <input type="date" class="form-control" name="birth_date"
+                                                        <input type="date" class="form-control" name="date_birth"
                                                             value="{{ Auth::user()->birth_date }}">
                                                     </div>
                                                 </div>
@@ -126,22 +126,35 @@
                                     <h3 class="card-title">Email</h3>
                                     <hr>
                                 </div>
-                                <div class="row  d-flex justify-content-center mt-2">
-                                    <div class="col-md-6 ">
-                                        <div class="form-group">
-                                            <form action="{{ route('user.updateEmail') }}" method="POST">
-                                                @csrf
-                                                <label for="email">Correo electrónico:</label>
-                                                <input type="email" name="email" value="{{ Auth::user()->email }}"
-                                                    class="form-control" id="email" placeholder="Correo electrónico">
-                                                <div class="form-text col-12 d-flex justify-content-center">
-                                                    <button type="submit"
-                                                        class="btn btn-success mt-4">Actualizar</button>
-                                                </div>
-                                            </form>
+                                @if (Auth::user()->external_auth == 'Normal')
+                                    <div class="row  d-flex justify-content-center mt-2">
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <form action="{{ route('user.updateEmail') }}" method="POST">
+                                                    @csrf
+                                                    <label for="email">Correo electrónico:</label>
+                                                    <input type="email" name="email"
+                                                        value="{{ Auth::user()->email }}" class="form-control"
+                                                        id="email" placeholder="Correo electrónico">
+                                                    <div class="form-text col-12 d-flex justify-content-center">
+                                                        <button type="submit"
+                                                            class="btn btn-success mt-4">Actualizar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="row mt-3">
+                                        <div class="col-md-12 ">
+                                            <p class="text-muted text-center">No puede cambiar su correo electrónico ya que se
+                                                registró con una
+                                                cuenta externa ({{ Auth::user()->external_auth }}).</p>
+                                        </div>
+                                    </div>
+                                @endif
+
+
                             </div>
 
 
