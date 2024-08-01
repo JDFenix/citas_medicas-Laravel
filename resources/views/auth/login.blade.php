@@ -47,7 +47,7 @@
                 <img src="{{ asset('img/img_login.png') }}" alt="image_login" class="">
             </div>
             <div class="col-md-6 mt-5">
-                <div class="text-center text-dark">
+                <div class="text-center me-auto"><!--Quite el text-dark para que funcone el blanco y negro-->
                     <h3>{{ __('Iniciar Sesión') }}</h3>
                 </div>
                 <form method="POST" action="{{ route('login') }}">

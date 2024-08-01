@@ -22,9 +22,17 @@ body.dark-mode {
 }
 
 .dark-mode .dropdown-item {
-    color: #e0e0e0;
+    color: #1d0798;
 }
 
 .dark-mode .dropdown-item:hover {
     background-color: #333;
+}
+
+.navbar-brand{
+    color: #0f3af7;
+}
+
+.ms-2{
+    color: #f70f0f;
 }

@@ -139,5 +139,9 @@ body.dark-mode {
     background-color: #333;
 }
 
+.ms-2{
+    color: #1d0798;
+}
+
 
 </style>

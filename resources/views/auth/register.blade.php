@@ -22,7 +22,7 @@
 
 
             <div class="col-md-6">
-                <div style="margin-left: 13%" class="text-center text-dark mb-4">
+                <div style="margin-left: 13%" class="text-center me-auto mb-4">
                     <h2 >Registro</h2>
                 </div>
                 <form method="POST" action="{{ route('register') }}">
